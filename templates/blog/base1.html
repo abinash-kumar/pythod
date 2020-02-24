@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Addiction Bazaar </title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="{% static 'myhome/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'myhome/css/zerogrid.css' %}">
+    <link rel="stylesheet" href="{% static 'myhome/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'myhome/css/responsiveslides.css' %}">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'myhome/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <script src="{% static 'myhome/js/jquery-latest.min.js' %}"></script>
+    <script src="{% static 'myhome/js/script.js' %}"></script>
+    <script src="{% static 'myhome/js/responsiveslides.min.js' %}"></script>
+    <script src="{% static 'myhome/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'myhome/js/jquery-scrolltofixed-min.js' %}"></script>
+	<script src="{% static 'js/jquery-plugin-panview.js' %}"></script>
+
+    <script>
+		// You can also use "$(window).load(function() {"
+		$(function () {
+		  // Slideshow 
+		  $("#slider").responsiveSlides({
+		  	auto: true,
+		  	pager: false,
+		  	nav: true,
+		  	speed: 500,
+		  	namespace: "callbacks",
+		  	before: function () {
+		  		$('.events').append("<li>before event fired.</li>");
+		  	},
+		  	after: function () {
+		  		$('.events').append("<li>after event fired.</li>");
+		  	}
+		  });
+		});
+		$(document).ready(function() {
+
+        // Dock the header to the top of the window when scrolled past the banner.
+        // This is the default behavior.
+
+        $('.fullgrid').scrollToFixed();
+
+
+        // Dock the footer to the bottom of the page, but scroll up to reveal more
+        // content if the page is scrolled far enough.
+
+
+        // Dock each summary as it arrives just below the docked header, pushing the
+        // previous summary up the page.
+
+        
+    });
+	</script>
+	
+	
+	<!--[if lt IE 8]>
+       <div style=' clear: both; text-align:center; position: relative;'>
+         <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+           <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+        </a>
+      </div>
+      <![endif]-->
+    <!--[if lt IE 9]>
+		<script src="js/html5.js"></script>
+		<script src="js/css3-mediaqueries.js"></script>
+		<![endif]-->
+
+	</head>
+	<body>
+		<div class="wrap-body">
+
+			<!--////////////////////////////////////Header-->
+			<div id="fixed-header">
+				<a class="top-std float-left">Addiction Bazaar - Save More Shop More</a>
+				<a class="top-std">Sell with us</a>
+				<a href="/blog" class="top-std">Blog</a>
+			</div>
+			<header >
+				<div class="wrap-header fullgrid" id="logobar">
+					<div class="row left-all-fixed">
+						<a href='/' class="logo"><img src="{% static 'myhome/images/abbeta.png' %}" /></a>
+					</div>
+					<div class="left-all-fixed">
+						<input class="search-box" type="text" name="search" placeholder="Search..">
+					</div>
+					<div class="cart float-right">
+						<p>1</p>
+					</div>
+					<div class="wishlist float-right">
+						<p>3</p>
+					</div>
+					<div class="title-std float-right">
+						<p>Login</p>
+					</div>
+				</div>
+			</header>
+
+	
+			{% block content %}
+
+			{% endblock %}
+
+
+			<!--////////////////////////////////////Footer-->
+			<footer>
+				<section class="content-box box-5"><!--Start Box-->
+					<div class="zerogrid">
+						<div class="row">
+							<div class="col-1-2">
+								<div class="wrap-col item">
+									<h3 class="item-header">CONNECT WITH US</h3>
+									<ul class="link">
+										<li><a href="#">facebook</a></li>
+										<li><a href="#">Instagram</a></li>
+										<li><a href="#">twitter</a></li>
+										<li><a href="#">Youtube</a></li>
+										<li><a href="#">Pintrest</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-1-2">
+								<div class="wrap-col item" style="border-right: none;"">
+									<h3 class="item-header">CARE & SUPPORT</h3>
+									<ul class="link">
+										<li><a href="#">Return Policy</a></li>
+										<li><a href="#">Terms and Conditions</a></li>
+										<li><a href="#">Privacy Policy</a></li>
+									</ul>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</section>
+			</div>
+		</section>
+	</footer>
+
+</div>
+</body></html>

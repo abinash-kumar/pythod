@@ -1,0 +1,46 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+
+<title>Addiction Bazaar - Campaigns-and-Coupons</title>
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Coupon Code</th>
+            <th>User</th>
+            <th>Redeem Amount</th>
+            <th>Campaign Expiry</th>
+            <th>Campaign Amount</th>
+            <th>Total Amount Applicability</th>
+            <th>Total Applicability</th>
+            <th>No. of times coupon applied</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for campaign in all_campaign %}
+          <tr>
+            <td>{{campaign.obj.campaign_type}}</td>
+            <td>{{campaign.obj.coupon}}</td>
+            <td>{{campaign.obj.coupon.user}}</td>
+            <td>{{campaign.obj.coupon.redeem_amount}}</td>
+            <td>{{campaign.expired_in}}</td>
+            <td>{{campaign.obj.amount}}</td>
+            <td>{{campaign.obj.maximum_amount}}</td>
+            <td>{{campaign.obj.total_applicability}}</td>
+            <td>{{campaign.no_of_times_coupon_applied}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+        
+    </div>
+</div>
+
+{% endblock %}
+

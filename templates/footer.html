@@ -1,0 +1,166 @@
+a{% load staticfiles %}
+
+
+<footer class="footer-distributed" id="main-footer">
+	<div class="container-90">
+		<br/>
+		<div class="logo">
+			<img src="{% static 'img/mainlogoinvert.png' %}" alt="logo - Addiction Bazaar" />
+			<!-- <img src="/uploads/homepage/2018-02-05003812350110.png" alt="logo - Addiction Bazaar" /> -->
+		</div>
+		<br/>
+		<div class="row">
+			<div class="col-sm-3">
+				<h5>Customer service</h5>
+				<ul>
+					<li>
+						<a href="/contact-us/">Contact Us</a>
+					</li>
+					<li>
+						<a href="">Bulk Order Query</a>
+					</li>
+					<li>
+						<a href="">Track Order</a>
+					</li>
+					<li>
+						<a href="">Return/cancel order</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-sm-3">
+				<h5>Company</h5>
+				<ul>
+					<li>
+						<a href="/about-us/">About us</a>
+					</li>
+					<li>
+						<a href="http://addictionbazaar.com/blog/doc/privacy-policy">Privacy policy</a>
+					</li>
+					<li>
+						<a href="">Affiliate program</a>
+					</li>
+					<li>
+						<a href="http://addictionbazaar.com/blog/doc/terms-and-conditions-of-use">Terms & condition</a>
+					</li>
+					<li>
+						<a href="">Blog</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-sm-3">
+				<h5>Connect with us</h5>
+				<div class="social-btns">
+					<a class="btn facebook" target="_blank" href="https://www.facebook.com/addictionbazaar">
+						<i class="fa fa-facebook"></i>
+					</a>
+					<a class="btn instagram" target="_blank" href="https://www.instagram.com/addictionbazaar/">
+						<i class="fa fa-instagram"></i>
+					</a>
+					<a class="btn pinterest" target="_blank" href="https://www.pinterest.com/addictionbazaar/">
+						<i class="fa fa-pinterest"></i>
+					</a>
+					<a class="btn tumblr" target="_blank" href="https://www.tumblr.com/blog/addictionbazaar">
+						<i class="fa fa-tumblr"></i>
+					</a>
+				</div>
+			</div>
+			<div class="col-sm-3">
+					<h5>Start Earning Instantly</h5>
+					<a href="/artist/home" target="_blank">
+						<p>Upload your ART</p>
+					</a>
+					<hr class="foot-hr">
+					<ul class="with-tick">
+						<li><a href="http://addictionbazaar.com/blog/doc/return-policy">15 days return policy</a></li>
+						<li>Free shipping above ₹699</li>
+						<li>Cash on delivery*</li>
+					</ul>
+			</div>
+			<div class="col-sm-3 ">
+					
+			</div>
+		</div>
+		<br/>
+		<div class="row">
+				<div class="col-sm-6">
+					<div class="wrap-col tac mybox">
+						<a href="https://msg91.com/startups/?utm_source=startup-banner">
+							<img src="https://msg91.com/images/startups/msg91Badge.png" width="120" height="90" title="MSG91 - SMS for Startups" alt="Bulk SMS - MSG91">
+						</a>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<h5>100 % Secure Payment Options</h5>
+						<div class="payment-option">
+							<i class="ic-secure visa" title="VISA"></i>
+							<i class="ic-secure master-card" title="Master Card"></i>
+							<i class="ic-secure american-express" title="American Express"></i>
+							<i class="ic-secure net-banking" title="Net Banking"></i>
+							<i class="ic-secure card-on-delivery" title="Card on delivery"></i>
+						</div>
+				</div>
+		</div>
+	</div>
+
+
+	<div class="container-90 mybox">
+		<h5>Navigation</h5>
+		<hr class="foot-hr-full">
+		<div class="row foot-nav">
+			<center>
+				<div class="navigation-list-4cols">
+					{% include "navigation.html" %}
+				</div>
+			</center>
+		</div>
+	</div>
+
+
+<!-- <div class="container-full">
+	<div class="row">
+		<div>
+			<div class="panel-heading" style="background:inherit; border: none;">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" href="#collapse2">
+						<h5>About us</h5>
+					</a>
+				</h4>
+			</div>
+			<div id="collapse2" class="panel-collapse collapse">
+				<ul class="list-group ">
+					<div class="pad-10 container-full">
+						<center>
+							<div class="navigation-list-4cols">
+								{% include "about_us_content.html"%}
+							</div>
+						</center>
+					</div>
+				</ul>
+			</div>
+		</div>
+	</div> -->
+<div class="row">
+		<div class="col-sm-3"></div>
+		<div class="col-sm-6">
+			<div class="footer-last flex-list">
+				<ul>
+					<li>
+						<a class="txt-small" href="http://addictionbazaar.com/blog/doc/return-policy"> Return Policy </a>
+					</li>
+					<li>
+						<a class="txt-small" href="http://addictionbazaar.com/blog/doc/cancellation-policy"> Cancel Policy </a>
+					</li>
+					<li>
+						<a class="txt-small" href="http://addictionbazaar.com/blog/doc/use-of-the-website"> Use of Website</a>
+					</li>
+					<li>
+						<a class="txt-small" href="http://addictionbazaar.com/blog/doc/seller-terms"> Artist/ Seller Terms</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-sm-3"></div>
+</div>
+</div>
+
+</footer>

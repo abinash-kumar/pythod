@@ -1,0 +1,49 @@
+{% extends "sellerbase.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<!--////////////////////////////////////Container-->
+
+
+
+<section class="content-box"><!--Start Box-->
+
+<div class="mui-container fix-len">
+<div class="mui-panel login-box center-block">
+
+{% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <p class="error">{{ error|escape }}</p>
+                {% endfor %}
+{% endif %}
+
+<form action="." method="POST"> {% csrf_token %}
+  <legend>Login to your Account</legend>
+  <div class="mui-textfield">
+    {{ form.username }}
+    <label>Enter Mobile Number</label>
+  </div>
+   {% for error in form.username.errors %}
+    <p class="error">{{ error|escape }}</p>
+    {% endfor %}
+  <div class="mui-textfield">
+   {{ form.password }}
+    <label>Password</label>
+  </div>
+  {% for error in form.password.errors %}
+   <p class="error">{{ error|escape }}</p>
+  {% endfor %}
+  <input type="hidden" value="{{next}}" name="next">
+  <button type="submit" class="mui-btn mui-btn--raised">Login</button>
+  <br>
+  <a href="/" class="mui-btn mui-btn--raised">Not Registred ?</a>
+</form>
+</div>
+</div>
+</section>
+
+
+
+
+
+{% endblock %}

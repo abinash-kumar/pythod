@@ -1,0 +1,25 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+
+<title>Addiction Bazaar </title>
+
+{% endblock %}
+
+{% block content %}
+<style type="text/css">
+	.db {
+		filter: blur(12px);
+		width: 100%;
+	}
+
+	.db img {
+		width: 100%;
+	}
+</style>
+
+<div class="db">
+	<img src="{% static 'img/dashboard.jpg' %}" alt="">
+</div>
+{% endblock %}

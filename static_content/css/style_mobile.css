@@ -1,0 +1,8 @@
+@media only screen and (max-device-width: 480px) {
+  .breadcrumb {
+    padding: 22px 5px 3px 8px;
+    background: #fff; }
+    .breadcrumb a {
+      font-family: "Montserrat", sans-serif; } }
+
+/*# sourceMappingURL=style_mobile.css.map */

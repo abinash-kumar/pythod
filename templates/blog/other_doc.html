@@ -1,0 +1,76 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+{% block content %}
+
+
+<!--////////////////////////////////////Container-->
+<style type="text/css">
+@import 'https://fonts.googleapis.com/css?family=Roboto+Slab:200,400,500';
+  p {
+    color: black;
+    font-family: 'Roboto Slab', serif;
+    font-weight: 200;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+  ul li {
+    list-style-type:disc;
+    font-family: 'Roboto Slab', serif;
+    margin-bottom: 10px;
+    margin-left: 40px;
+  }
+
+  ul {
+    margin-bottom: 20px;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto Slab', serif;
+    margin-bottom: 30px;
+  }
+  h4 {
+    margin:1.5em 0;
+    text-align:start;
+    font-size:1.25em;
+    font-weight:400;
+    line-height:1.5;
+    font-family: 'Roboto Slab', serif;
+  }
+  .blog-post {
+    text-align: justify;
+  }
+</style>
+<div class="container">
+
+      <div class="blog-header">
+        <h1 class="blog-title">{{post.title}}</h1>
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-12 blog-main">
+
+          <div class="blog-post">
+            {% if post.image %}
+            <a class="story-title" href="#">
+            <img alt="" src="{{ post.image.url  }}"
+              style="width:60%px;height:auto;" class="blog-image"></a>
+            <img src="{{post.image.url}}" id="imagePan" style="display:none;"/>
+            {% endif %}
+            {{post.content | safe}}    
+
+</div><!-- /.blog-post -->
+
+ <script>
+$(document).load(function() {
+  $("img#imagePan").panView(400,400);
+})
+</script>      
+ 
+
+        </div><!-- /.blog-main -->
+
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+
+{% endblock %}

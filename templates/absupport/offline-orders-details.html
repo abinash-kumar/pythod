@@ -1,0 +1,74 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+
+<title>Enter details : Offline Orders</title>
+
+<!-- 
+Make a html form :
+
+Loop to order line item. and display the order form:
+
+
+
+
+
+-->
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+    	<form action="/ab/offline-orders/submit/" method="POST"> {% csrf_token %}
+    	{% for i in order_line_item %}
+    		<!-- order wali chize -->
+    		Qunatity : <input type="text" name="quantity-{{i}}"><br>
+    		Product Id : <input type="number" name="product_id"><br>
+    		Price : <input type="number" name="price"><br>
+    		Comment : <input type="text" name="comment"><br>
+    		Order other detail : <input type="text" name="order_other_detail"><br>
+    		{{ order_line_item }}
+
+
+    	{% endfor %}
+
+
+    	<!-- order general details -->
+    		Phone : <input type="number" name="phone"><br>
+    		Email : <input type="email" name="email"><br>
+    		Shipping Firstname : <input type="text" name="shipping_firstname"><br>
+    		Shipping Lastname : <input type="text" name="shipping_lastname"><br>
+    		Shipping Address 1 : <input type="text" name="shipping_address1"><br>
+    		Shipping Address 2 : <input type="text" name="shipping_address2"><br>
+    		Shipping City : <input type="text" name="shipping_city"><br>
+    		Shipping State : <input type="text" name="shipping_state"><br>
+    		Shipping Country : <input type="text" name="shipping_country"><br>
+    		Shipping Zipcode : <input type="text" name="shipping_zipcode"><br>
+    		Order Status : <select name="order_status" >
+                        {% for obj in order_status %}
+                        <option value="{{ order_status }}">
+                            {{ obj }}
+                        </option>
+                        {% endfor %}
+                        </select><br>
+<!--   	      Order Line Item: <input type="number" name="order_line_item"><br>  
+ -->
+                        <input type="submit" class="btn btn-success" value="SUBMIT" />
+
+
+             <input type="text" name="transaction_id" value={{transaction_obj.id}} style="display: hidden"><br>
+             <input type="text" name="order_line_item"  value={{order_line_item}}  style="display: hidden"><br>
+
+
+<!--              <input type="number" name="order_line_item" value={{ order_line_item }} ><br> 
+ --> 
+
+
+    	</form>
+    </div>
+</div>
+
+{% endblock %}

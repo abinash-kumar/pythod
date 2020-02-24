@@ -1,0 +1,82 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+{% block content %}
+
+
+<!--////////////////////////////////////Container-->
+<style type="text/css">
+@import 'https://fonts.googleapis.com/css?family=Roboto+Slab:300,500';
+  p {
+    color: black;
+    font-family: 'Roboto Slab', serif;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+  ul li {
+    list-style-type:circle;
+  }
+  h4 {
+    margin:1.5em 0;
+    text-align:start;
+    font-size:1.25em;
+    font-weight:500;
+    line-height:1.5;
+    font-family: 'Roboto Slab', serif;
+  }
+</style>
+<div class="container">
+
+      <div class="blog-header">
+        <h1 class="blog-title">{{post.title}}</h1>
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-8 blog-main">
+
+          <div class="blog-post">
+            <p class="blog-post-meta">{{post.posted_on}} by <a href="#">{{post.author}}</a></p>
+            {% if post.image %}
+            <a class="story-title" href="#">
+            <img alt="" src="{{ post.image.url  }}" 
+              style="width:60%px;height:auto;" class="blog-image"></a>
+            <img src="{{post.image.url}}" id="imagePan" style="display:none;"/>
+            {% endif %}
+            {{post.content | safe}}    
+
+</div><!-- /.blog-post -->
+
+ <script>
+$(document).load(function() {
+  $("img#imagePan").panView(400,400);
+})
+</script>      
+ 
+
+        </div><!-- /.blog-main -->
+
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          
+          <div class="sidebar-module">
+            <h4>Archives</h4>
+            <ol class="list-unstyled">
+             {% for i in calender %}
+              <li><a href="/blog/archived/{{i.split|join:'*'}}">{{i}}</a></li>
+            {% endfor %}
+            </ol>
+          </div>
+          <div class="sidebar-module">
+            <h4>Elsewhere</h4>
+            <ol class="list-unstyled">
+              <li><a href="#">Instagram</a></li>
+              <li><a href="#">Twitter</a></li>
+              <li><a href="#">Facebook</a></li>
+            </ol>
+          </div>
+        </div><!-- /.blog-sidebar -->
+
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+
+{% endblock %}

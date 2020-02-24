@@ -1,0 +1,643 @@
+{% extends "sellerbasedashboard.html" %}
+{% load staticfiles %}
+{% block subcontent %}
+
+<!--////////////////////////////////////Container-->
+<script src="{% static 'js/bootstrap-select.js' %}"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+<script src="https://rawgit.com/adrotec/knockout-file-bindings/master/knockout-file-bindings.js"></script>
+<section class="content-box"><!--Start Box-->
+
+<div class="mui-container container" data-bind="visible : fileContainer">
+<div class="row">
+<h2 data-bind='text: productName'></h2>
+<p> Add Images of this product by clicking below button </p>
+</div>
+</div>
+
+<div id="formCont" class="mui-container" data-bind="visible: formContainer">
+<form id="product-form" method="POST" data-bind="submit: open_modal_upload_image">{% csrf_token %}
+<div class="form-group">
+      <div class="row">
+      <div class="col-sm-5 col-md-6">
+      <p class="form-heading">Select Category of Product</p>
+      </div>
+      <div class="col-sm-5 col-md-6">
+      <select class="selectpicker" data-bind="options: categories,value: selectedCat" data-live-search="true" title="Please select a category ..." required>
+        {% for key, value in category.items %} 
+        <option value="{{key}}" >{{value}}</option>
+        {% endfor %}
+      </select>
+      </div>
+      </div>
+
+      <div class="row">
+    <div class="col-sm-5 col-md-6">
+        <p class="form-heading ">Enter Name of Product</p>
+    </div>
+    <div class="col-sm-5 col-md-6">
+        <div class="mui-textfield mui-textfield--float-label">
+            <input type="text" data-bind="value: name" required>
+            <label>Product Name</label>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-5 col-md-6">
+        <p class="form-heading ">Add Description</p>
+    </div>
+    <div class="col-sm-5 col-md-6">
+        <div class="mui-textfield mui-textfield--float-label">
+          <textarea  data-bind="value: desc" required></textarea>
+          <label>Description</label>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-sm-5 col-md-6">
+        <p class="form-heading ">Price per unit</p>
+    </div>
+    <div class="col-sm-5 col-md-6">
+        <div class="mui-textfield mui-textfield--float-label">
+          <input type="number"  data-bind="value: price" required>
+          <label>Price in Rs.</label>
+        </div>
+    </div>
+</div>
+
+    
+
+<div class="row">
+    <div class="col-sm-5 col-md-6">
+    </div>
+    <div class="col-sm-5 col-md-6">
+        <label>
+<input type="checkbox" data-bind="checked: is_wholesale, click: myAction">
+Is price same as wholesale price ?
+    </label>
+    </div>
+</div>
+
+<div class="row" data-bind="visible: isreqprice">
+    <div class="col-sm-5 col-md-6">
+        <p class="form-heading ">Whole sale price</p>
+    </div>
+    <div class="col-sm-5 col-md-6">
+        <div class="mui-textfield mui-textfield--float-label">
+            <input type="number"  data-bind="value: wholesale" required>
+            <label>Price in Rs</label>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-5 col-md-6">
+    <p class="form-heading ">Is Product have varient ?</p>
+  </div>
+  <div class="col-sm-5 col-md-6">
+    <div class="mui-radio">
+      <label>
+      <input type="radio"
+             name="varient"
+             value="yes"
+             data-bind="checked: varient">
+      Yes
+      </label>
+      <label>
+      <input type="radio"
+             name="varient"
+             value="no"
+             data-bind="checked: varient">
+      No
+      </label>
+      <input class="form-control" style="float:right;width:55%;" placeholder="Enter Varient Name e.g. Color, Size" 
+       data-bind="visible: varientsField, value : varientName"></input>
+    </div>
+  </div>
+</div>
+
+<div class="row" data-bind="visible: varientsField">
+  <div class="col-sm-5 col-md-6">
+    <p class="form-heading ">Varients</p>
+  </div>
+  <div class="col-sm-5 col-md-6">
+    <div class="mui-textfield mui-textfield--float-label">
+        <input type="text"  data-bind="value: varientValuesJunk,event: { blur: makeTextBox }">
+        <label>Enter varients by seperating it using comma ',' eg. S,M,L,XL</label>
+    </div>
+  </div>
+</div>
+
+ <div class="mui-container" data-bind="visible: varientsField">
+    <div class="row" data-bind="foreach: textFields">
+       
+       <div class="col-xs-6" style="padding:5px;">
+       <label>Quantity for : </label> <label data-bind = "text : varientText"></label>
+       </div>
+       <div class="col-xs-6" style="padding:5px;">
+       <input class="form-control"  placeholder="Value e.g. Red for 'key' color" 
+       data-bind="value: quantityValue" type="number"></input>
+       </div>
+       <br>
+       </div>
+
+  </div>
+
+  <div class="row" data-bind="visible: varientsField()==false">
+    <div class="col-sm-5 col-md-6">
+        <p class="form-heading ">Quantity</p>
+    </div>
+    <div class="col-sm-5 col-md-6">
+        <div class="mui-textfield mui-textfield--float-label">
+            <input type="number"  data-bind="value: quantity">
+            <label>Quantity</label>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+  <div class="col-sm-5 col-md-6">
+    <p class="form-heading ">Discount (If you are offering)</p>
+</div>
+<div class="col-sm-5 col-md-6">
+    <div class="mui-textfield mui-textfield--float-label">
+        <input type="text"  data-bind="value: discount">
+        <label>Discount</label>
+    </div>
+    <div class="mui-radio">
+      <label>
+      <input type="radio"
+             name="discount"
+             value="flat"
+             data-bind="checked: discountType">
+      Flat
+      </label>
+      <label>
+      <input type="radio"
+             name="discount"
+             value="percentage"
+             data-bind="checked: discountType">
+      Percentage(%)
+      </label>
+    </div>
+</div>
+</div>
+
+<!--  -->
+</div>
+<input id='submit-btn' type="submit" name="Save & Continue to Upload Image" class="mui-btn mui-btn--raised" >
+
+</form>
+</section>
+
+<!-- ds,fhjkds fhkjdshfkjdshfjk -->
+
+
+<div class="container" data-bind="visible : fileContainer">
+ <br>
+    <br>
+     <br>
+    <br>
+    <!-- The fileinput-button span is used to style the file input field as button -->
+    <form id="fileupload">
+    <span class="btn btn-success fileinput-button">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span>Add files...</span>
+        <input type="file" name="product_photo" multiple>
+    </span>
+    <input type="text" name="product" data-bind="value : productId" style="display:none;">
+    </form>
+    <br>
+    <br>
+    <!-- The global progress bar -->
+    <div id="progress" class="progress">
+        <div class="progress-bar progress-bar-success"></div>
+    </div>
+    <!-- The container for the uploaded files -->
+    <div id="files" class="files"></div>
+    <br>
+ 
+</div>
+<div class="mui-container" data-bind="visible : fileContainer">
+<h2>Add More Description for your Product</h2>
+<div class="container" data-bind="foreach: group">
+  <div class="row" style="margin-top:10px;">   
+    <div class="form-inline">
+      <label>Group : </label>
+      <input class="form-control" data-bind="value : gname, disable: isEnableX(gname)"></input>
+      <label>Priority</label>
+      <input class="form-control" data-bind="value : gp,disable: isEnableX(gp)"></input>
+    </div>
+  </div>
+       <div class="row" data-bind="foreach: desc">
+       
+       <div class="col-xs-6" style="padding:5px;">
+       <input class="form-control" data-bind="value : key1,disable: isEnableX(key1)" placeholder="Key e.g. color"></input>
+       </div>
+       <div class="col-xs-6" style="padding:5px;">
+       <input class="form-control" data-bind="value : value1" placeholder="Value e.g. Red for 'key' color"></input>
+       </div>
+       <br>
+       </div>
+  <br>
+  <button class="btn btn-default" data-bind="click: addDesc">Add Keys Values</button>
+  <span class="error" data-bind='visible: keyError'>Please fillout blank details first</span>
+  <span class="error" data-bind='visible: mangroupError'>Enter group name and proirity to proceed</span>
+  </div>
+
+<br>
+<button class="btn btn-default" data-bind="click: addGroup">Add Group</button>
+<span class="error" data-bind='visible: groupError'>Please fillout blank details first</span>
+<br>
+<br>
+<button class="btn btn-default" data-bind="click: saveall">Its All done, Add Another Product</button>
+<span class="error" data-bind='visible: formError'>Something missing, please fill!</span>
+</div>
+
+
+<script type="text/javascript">
+
+function Description(key,value,somevalue) {
+    var self = this;
+    (key === undefined) ? key = '' : key = key;
+    (value === undefined) ? value = '' : value = value; 
+    self.key1 = ko.observable(key); 
+    self.value1 = ko.observable(value);  
+    self.isEnableX = function(value){
+    return somevalue;
+    } 
+}
+function Group(name,p,des,somevalue) {
+    var self = this;
+    (name === undefined) ? name = '' : name = name; 
+    (p === undefined) ? p = '' : p = p; 
+    self.gname = ko.observable(name); 
+    self.gp = ko.observable(p);
+    self.desc = ko.observableArray([]);
+    for (var prop in des) {
+      self.desc.push(new Description(prop,des[prop],true));
+    }
+    self.keyError = ko.observable(false);
+    self.mangroupError = ko.observable(false);
+    self.addDesc = function(des) {
+      if (self.gname() != "" && self.gp() != "" ){
+        if(self.desc()=='' || self.desc()[self.desc().length-1].key1()!="" && self.desc()[self.desc().length-1].value1()!=""){
+        self.desc.push(new Description());
+        self.keyError(false);
+        self.mangroupError(false);
+      }
+      else{
+        self.keyError(true);
+      }
+      }
+      else {
+        self.mangroupError(true);
+      }
+    }
+    self.isEnableX = function(value){
+    return somevalue;
+    }
+}
+
+
+function varientInput(name){
+  var self = this;
+  self.varientText = ko.observable(name);
+  self.quantityValue = ko.observable("");
+}
+
+function FormViewModel() {
+  var self = this;
+  self.productId = ko.observable(null);
+  self.productName = ko.computed(function(){
+    return getCookie("productName");
+  });
+  self.id = ko.observable(self.productId);
+  self.categories = ko.observableArray({{category|safe}});
+  self.selectedCat = ko.observable();
+  self.name = ko.observable("");
+  self.price = ko.observable("");
+  self.varient = ko.observable("no");
+  self.wholesale = ko.observable();
+  var vquant = [];
+  self.vQuantity = ko.observable();
+  self.quantity = ko.computed(function(value){
+    if (self.varient() == "no"){
+      return value;
+    }
+    else {
+      var sum = 0;
+      for (var i = 0;i < self.textFields().length;i++)
+        sum =  sum + parseInt(self.textFields()[i].quantityValue());
+        return sum;
+    }
+  });
+  self.desc = ko.observable("");
+  self.discount = ko.observable(0);
+  self.discountType = ko.observable("percentage");
+  
+  self.varientsField = ko.computed(function(){
+    return self.varient() == "yes";
+  });      
+   // ko.observable(self.varient()=='yes');
+  self.varientValuesJunk = ko.observable("");
+  self.varientValues = ko.computed(function(){
+    var x =  $.trim(self.varientValuesJunk()).split(/\s*\,\s*/);
+    return x.filter(function(n){ return n != "" }); 
+  });
+
+  self.textFields = ko.observableArray([])
+  self.makeTextBox = function(){
+    self.textFields([]);
+    for(var i=0;i < self.varientValues().length; i++){
+      self.textFields.push(new varientInput(self.varientValues()[i]));
+    }
+  }
+  self.varientValue = ko.observable("");
+  self.is_wholesale = ko.observable(false);
+  self.isreqprice = ko.observable(true);
+  var a = onPageLoadCheckForExistingProductID();
+
+  self.fileContainer = ko.observable(a);
+  self.formContainer = ko.observable(!a);
+  self.formError = ko.observable(false);
+  var errorOnProductForm = false;
+  self.varientName = ko.observable("")
+  var errorOnForm = false;
+  self.saveall = function () {
+    self.formError(false);
+    for (var i=0;i< self.group().length;i++){
+      for (var j=0;j< self.group()[i].desc().length;j++){
+        if((self.group()[i].desc()[j].key1()=='' && self.group()[i].desc()[j].value1()!='') ||
+          (self.group()[i].desc()[j].key1()!='' && self.group()[i].desc()[j].value1()=='')){
+          errorOnForm = true;
+        }
+      }
+    }
+  
+    if (!errorOnForm){
+       $.post(
+      "/add-product-details/",
+     {'csrfmiddlewaretoken' : "{{csrf_token}}",
+      'data': ko.toJSON(self.group())
+      // 'discount':self.discount,
+      }, 
+     function (data) {
+        if (data.success) {
+          setCookie("productName","",0);
+          setCookie("productID","",0);
+          location.reload();
+        }
+      });
+    }
+    else {
+      self.formError(true);
+      errorOnForm = false;
+    }
+  }
+  var des1 = {"color":"red",
+      "fabric":"cotton",
+  };
+  var des2 = {
+      "SKUNO":"334HU43"
+  };
+  self.group = ko.observableArray();
+  self.groupError = ko.observable(false);
+  self.addGroup = function(des) {
+        if(self.group()=='' || self.group()[self.group().length-1].gname()!="" && self.group()[self.group().length-1].gp()!=""){
+          (self.group().length == 0)? self.group.push(new Group("Hightlights","1")):self.group.push(new Group());
+          self.groupError(false)
+        }
+        else{
+            self.groupError(true);
+        }
+  } 
+  var des = jQuery.parseJSON('{{data|safe}}');
+  for(var i = 0, size = des.length; i < size ; i++){
+    var item = des[i];
+    self.group.push(new Group(item['name'],item['priority'],item['keys'],true))
+  }
+  self.myAction = function(){
+    if(self.is_wholesale()==true){
+      self.wholesale(self.price());
+      self.isreqprice(false);
+    }
+    else {
+       self.wholesale("");
+       self.isreqprice(true);
+      }
+    return true;
+    };
+
+    self.open_modal_upload_image = function(){
+      debugger;
+
+      setCookie("productName",self.name(),10)  
+      $.post(
+      "/add-product-post/",
+     {'csrfmiddlewaretoken' : "{{csrf_token}}",
+      'name':self.name,
+      'price':self.price,
+      'wholesale_price':self.wholesale,
+      'quantity':self.quantity,
+      'desc':self.desc,
+      'category':self.selectedCat,
+      'varient':ko.toJSON(self.textFields()),
+      'varientname':self.varientName(),
+      'discount':self.discount,
+      'discountType': self.discountType,
+      }, 
+     function (data) {
+        if (data.success) {
+          self.productId = data.productId;
+          setCookie("productID",self.productId,10)
+          self.id(self.productId);
+          $('#formCont').fadeOut();
+          $('#uploadCont').fadeIn();
+          self.fileContainer(true);
+          des = data.data
+          for(var i = 0, size = des.length; i < size ; i++){
+            var item = des[i];
+            self.group.push(new Group(item['name'],item['priority'],item['keys'],true))
+          }
+          $("html, body").animate({ scrollTop: 0 }, "slow");
+          location.reload();
+        }
+      });
+      
+    }
+  };
+
+ko.applyBindings(new FormViewModel());
+
+function onPageLoadCheckForExistingProductID (){
+  console.log(getCookie("productID"))
+    if (getCookie("productID") != "")
+      return true; 
+    else 
+      return false;
+}
+
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length,c.length);
+        }
+    }
+    return "";
+}
+
+</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+<script src="{% static 'js/vendor/jquery.ui.widget.js' %}"></script>
+<!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+<script src="{% static 'js/load-image.min.js' %}"></script>
+<!-- The Canvas to Blob plugin is included for image resizing functionality -->
+<script src="{% static 'js/canvas-to-blob.min.js' %}"></script>
+<!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
+<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+<script src="{% static 'js/jquery.iframe-transport.js' %}"></script>
+<!-- The basic File Upload plugin -->
+<script src="{% static 'js/jquery.fileupload.js' %}"></script>
+<!-- The File Upload processing plugin -->
+<script src="{% static 'js/jquery.fileupload-process.js' %}"></script>
+<!-- The File Upload image preview & resize plugin -->
+<script src="{% static 'js/jquery.fileupload-image.js' %}"></script>
+<!-- The File Upload audio preview plugin -->
+<script src="{% static 'js/jquery.fileupload-audio.js' %}"></script>
+<!-- The File Upload video preview plugin -->
+<script src="{% static 'js/jquery.fileupload-video.js' %}"></script>
+<!-- The File Upload validation plugin -->
+<script src="{% static 'js/jquery.fileupload-validate.js' %}"></script>
+<script src="{% static 'js/jquery.cookie.js' %}"></script>
+
+<script>
+/*jslint unparam: true, regexp: true */
+/*global window, $ */
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$(function () {
+    var self = this;
+    'use strict';
+    var csrftoken = $.cookie('csrftoken');
+    // Change this to the location of your server-side upload handler:
+    var url = '/upload-image/',
+        uploadButton = $('<button/>')
+            .addClass('btn btn-primary')
+            .prop('disabled', true)
+            .text('Processing...')
+            .on('click', function () {
+                var $this = $(this),
+                    data = $this.data();
+                $this
+                    .off('click')
+                    .text('Abort')
+                    .on('click', function () {
+                        $this.remove();
+                        data.abort();
+                    });
+                data.submit().always(function () {
+                    $this.remove();
+                });
+            });
+    $('#fileupload').fileupload({
+        url: url,
+        crossDomain: false,
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type)) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        },
+        formData: {product: getCookie("productID")},
+        dataType: 'json',
+        autoUpload: false,
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        maxFileSize: 5000000, // 5 MB
+        // Enable image resizing, except for Android and Opera,
+        // which actually support image resizing, but fail to
+        // send Blob objects via XHR requests:
+        disableImageResize: /Android(?!.*Chrome)|Opera/
+            .test(window.navigator.userAgent),
+        previewMaxWidth: 100,
+        previewMaxHeight: 100,
+        previewCrop: true
+    }).on('fileuploadadd', function (e, data) {
+        data.context = $('<div/>').appendTo('#files');
+        $.each(data.files, function (index, file) {
+            var node = $('<p/>')
+                    .append($('<span/>').text(file.name));
+            if (!index) {
+                node
+                    .append('<br>')
+                    .append(uploadButton.clone(true).data(data));
+            }
+            node.appendTo(data.context);
+        });
+    }).on('fileuploadprocessalways', function (e, data) {
+        var index = data.index,
+            file = data.files[index],
+            node = $(data.context.children()[index]);
+        if (file.preview) {
+            node
+                .prepend('<br>')
+                .prepend(file.preview);
+        }
+        if (file.error) {
+            node
+                .append('<br>')
+                .append(file.error);
+        }
+        if (index + 1 === data.files.length) {
+            data.context.find('button')
+                .text('Upload')
+                .prop('disabled', !!data.files.error);
+        }
+    }).on('fileuploadprogressall', function (e, data) {
+        var progress = parseInt(data.loaded / data.total * 100, 10);
+        $('#progress .progress-bar').css(
+            'width',
+            progress + '%'
+        );
+    }).on('fileuploaddone', function (e, data) {
+        $.each(data.result.files, function (index, file) {
+            var link = $('<a>')
+                .attr('target', '_blank')
+                .prop('href', file.url);
+            $(data.context.children()[index])
+                .wrap(link);
+        });
+    }).on('fileuploadfail', function (e, data) {
+        $.each(data.result.files, function (index, file) {
+            var error = $('<span/>').text(file.error);
+            $(data.context.children()[index])
+                .append('<br>')
+                .append(error);
+        });
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+});
+</script>
+
+  {% endblock %}

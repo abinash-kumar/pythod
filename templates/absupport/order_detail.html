@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+
+<title>Order Detail - Addiction Bazaar </title>
+
+{% endblock %}
+
+{% block content %}
+<div class="container-90">
+<h4>Order Detail</h4>
+
+Order - {{ order }}</br>
+User - {{ order.user }}</br> 
+Time - {{ order.order_placed_time }}</br> 
+Product - {{ order.product_id }}</br>
+Quantity - {{ order.quantity }}</br>
+Order Details - {{ order.order_other_detail }}</br>
+Price - {{ order.price }}</br>
+Discount - {{ order.discount }}</br>
+Coupon Discount {{ order.coupon_discount }}</br>
+Shipping Charge - {{ order.shipping_charge }}</br>
+Phone - {{ order.phone }}</br>
+Email - {{ order.email }}</br>
+Name - {{ order.shipping_firstname }} &nbsp; {{ order.shipping_lastname }}</br>
+Address1 - {{ order.shipping_address1 }}</br>
+Address2 - {{ order.shipping_address2 }}</br>
+City - {{ order.shipping_city }}</br>
+State - {{ order.shipping_state }}</br>
+Country - {{ order.shipping_country }}</br>
+Pincode - {{ order.shipping_zipcode }}</br>
+Status - {{ order.order_status }}</br>
+TrackCode - {{ order.track_code }}</br>
+Comment - {{ order.comment }}</br>
+Process By Seller{{order.process_by_seller }} </br>
+</hr>
+  
+{% if order.order_status == 'COD' or order.order_status == 'PAYMENT_DONE' %}
+<select  name="status" form="select-opt">
+    <option value="CONFIRMED">CONFIRMED</option>
+    <option value="CANCELLED">CANCELLED</option>
+</select>
+<form action="{% url 'order_confirm' %}" id="select-opt" method="POST">{% csrf_token %}
+    {% for avelable_seller in avelable_sellers %}
+    <tr>
+        <td>
+            <input type="radio" name="seller_id" value="{{ available_seller.id }}" checked>
+        </td>
+        <td>
+            {{ available_seller.seller.first_name }}
+        </td>
+    </tr>
+    {% endfor%}
+    <input type="hidden" name="order" value="{{ order.id }}">
+    <input type="submit">
+</form>
+{% endif %}
+
+{% if order.order_status == 'CONFIRMED' %}
+    {% if err %}
+    {{ delivery_partners.errors }}
+    {% else %}
+    <form action="{% url 'order_confirm' %}" id="select-opt" method="POST">{% csrf_token %}
+    <table>
+    {% for d in delivery_partners.apilist %}
+    <tr>
+        <td>
+            <input type="radio" name="partner_id" value="{{ d.partner_id }}" checked>
+        </td>
+        <td>
+            {{ d.partner_name }}
+        </td>
+        <td>
+            {{ d.price }}
+        </td>
+    </tr>
+    {% endfor%}
+    </table>   
+    <input type="hidden" name="order" value="{{ order.id }}">
+    <input type="hidden" name="status" value="SHIP_REQUEST">
+    <input type="date" name="date" >
+    <input type="submit" value="SHIP_REQUEST">
+</form>
+{% endif %}
+{% endif %}
+</div>
+{% endblock %}

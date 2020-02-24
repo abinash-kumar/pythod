@@ -1,0 +1,61 @@
+{% extends "new_home.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+
+<link href="{% static 'product/css/animate.css' %}" rel="stylesheet">
+<link href="{% static 'product/css/style.default.css' %}" rel="stylesheet" id="theme-stylesheet">
+<link href="{% static 'product/css/custom.css' %}" rel="stylesheet">
+<script src="{% static 'js/knockout-3.4.0.js' %}"></script>
+<link rel="stylesheet" href="{% static 'product/css/multizoom.css' %}" type="text/css" />
+
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'product/js/multizoom.js' %}">
+// Featured Image Zoomer (w/ optional multizoom and adjustable power)- By Dynamic Drive DHTML code library (www.dynamicdrive.com)
+// Multi-Zoom code (c)2012 John Davenport Scheuer
+// as first seen in http://www.dynamicdrive.com/forums/
+// username: jscheuer1 - This Notice Must Remain for Legal Use
+// Visit Dynamic Drive at http://www.dynamicdrive.com/ for this script and 100s more
+</script>
+
+
+{% endblock %}
+
+{% block content %}
+
+<div id="content">
+	<div class="container">
+		<div class="row">
+        <div class="col-md-6">
+
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              Email
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              {% for value in drop_down_values %}
+              <li><a href="ab/initiate-email-sending/{{value.id}}/">{{value.nid}}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              SMS
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              {% for value in drop_down_values %}
+              <li><a href="ab/initiate-sms-sending/{{value.id}}/">{{value.nid}}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+            
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+<title>Your Cart - Addiction Bazaar</title>
+{% endblock %}
+
+{% block content %}
+
+<div id="content">
+   <div class="container">
+   	<div class="row">
+   	<h3>{{message}}</h3>
+   		<form method="POST" action="/ab/product/submit-price-quantity/">{% csrf_token %}
+   		<input type="text" name="product_id" value="{{product_id}}">{{v}}<br>
+   			{% for key, values in varients.items %}
+   				<h4>Select {{key}}</h4>
+   				{% for v in values %}
+                                 <input type="checkbox" name="{{key}}" value="{{v.keys.0}}"
+                                 {% if v.items.0.1 %}
+                                 checked
+                                 {% endif %}>{{v.keys.0}}<br>
+   				{% endfor %}
+   			{% endfor %}
+   				<input type="submit">
+   		</form>
+   	</div>
+   </div>
+   <br />
+   <br />
+   <br />
+   <div class="container">
+         {% for i in product_photo%}
+         <div class="col-sm-4">
+            <img src="{{i}}">
+         </div>
+         {% endfor %}
+         }
+   </div>
+</div>
+
+{% endblock %}
+{{required_category_objs}}
+
+
+
+{{varients}}

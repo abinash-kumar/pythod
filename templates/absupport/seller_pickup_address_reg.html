@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+
+<title>Seller Pickup Address Details - Addiction Bazaar </title>
+
+{% endblock %}
+
+{% block content %}
+
+{% if seller %}
+<select  name="id" form="select-opt">
+{% for s in seller %}
+<option value="{{ s.id }}" >{{ s.seller.first_name }} {{ s.seller.last_name }}</option>
+{% endfor %}
+</select>
+<form action="" id="select-opt">
+  <input type="submit">
+</form>
+{% endif %}
+{{ id }}
+{{ seller_obj }}</br>
+{{ mobile }}</br>
+{{ pickup_address }}</br>
+{{ pincode }}</br>
+{% if id %}
+
+<hr/>
+<form method="POST" action="{% url 'seller_pickup_address_update' %}">
+<input type="hidden" name="seller_id" value="{{ id }}">
+AIPEX pickup_address<br />
+First Name-<input type="text" name="fname" value="{{ first_name }}"/><br/>
+Last Name-<input type="text" name="lname" value="{{ last_name }}"/><br/>
+mobile number-<input type="text" name="mob" value="{{ mobile }}"/><br/>
+Address Line 1-<input type="text" name="address1" value="{{ pickup_address }}"/><br/>
+Address Line 2-<input type="text" name="address2" value=""/><br/>
+PinCode- <input type="text" name="pincode" value="{{ pincode }}"/><br/>
+<input type="submit" value="Approve Address"/>
+</form>
+<hr/>
+{% endif %}
+<hr/>
+
+{% if all_address %}
+<h3> All Addresses </h3>
+<table border="1" >
+    <tr><td>Address ID</td><td>Address Status</td><td>Address Address</td></tr>
+{% for address in all_address %}
+<tr>
+    <td>
+    {{ address.address_id }}
+    </td>
+
+    <td>
+    {{ address.status }} &nbsp;
+    </td>
+    <td>
+    {{ address.address }}
+    </td>
+</tr>
+{% endfor %}
+</table>
+{% endif %}
+{% endblock %}

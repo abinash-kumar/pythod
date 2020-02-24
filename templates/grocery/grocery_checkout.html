@@ -1,0 +1,176 @@
+{% extends "grocerybase.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+
+
+{% endblock %}        
+
+{% block content %}
+
+<div id="content">
+            <div class="container">
+
+                <div class="row-no-margin">
+
+                    <div class="col-md-12 clearfix" id="checkout">
+
+                        <div class="box">
+                                <ul class="nav nav-pills nav-justified">
+                                    <li class="active"><a href="#"><i class="fa fa-map-marker"></i><br>Address</a>
+                                    </li>
+                                </ul>
+<form method="post" action="/review-order-grocery/"> {% csrf_token %}
+                                <div class="content">
+                                    <div class="row-no-margin">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="firstname">Name</label>
+<input type="text" class="form-control" name="firstname" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.row -->
+
+                                    <div class="row-no-margin">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="address1">Address</label>
+                <input type="text" class="form-control" name="address1" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.row -->
+                                    <div class="row-no-margin">
+                                        <div class="col-xs-12 col-md-8">
+                                        Lucknow, Uttar Pradesh, India.
+                                        </div>
+                                    </div>
+                                    <div class="row-no-margin">
+                                        <div class="col-xs-12 col-md-8 hide">
+                                            <div class="form-group">
+                                                <label for="city">City</label>
+                <input type="text" value="Lucknow" class="form-control" name="city" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-3 hide">
+                                            <div class="form-group">
+                                                <label for="zip">ZIP</label>
+                <input type="number" value= "226001" class="form-control" name="zip" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-3 hide">
+                                            <div class="form-group">
+                                                <label for="state">State</label>
+                <input type="text" value="Uttar Pradesh" class="form-control" name="state" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-3 hide">
+                                            <div class="form-group">
+                                                <label for="country">Country</label>
+                <input type="text" value="India" class="form-control" name="country" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="phone">Telephone</label>
+                <input type="tel" class="form-control" name="phone" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="email">Email</label>
+                <input type="email" class="form-control" name="email" required>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.row -->
+                                </div>
+
+                                
+                        </div>
+                        <!-- /.box -->
+
+
+                    </div>
+                    <!-- /.col-md-9 -->
+
+
+                    <!-- /.col-md-3 -->
+
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container -->
+</div>
+
+<div id="content">
+    <div class="container"> 
+        <div class="row-no-margin">
+
+            <div class="col-md-12 clearfix" id="checkout">
+
+                <div class="box">
+                    <ul class="nav nav-pills nav-justified">
+                        <li class="active"><a href="#"><i class="fa fa-money"></i><br>Payment Method</a>
+                        </li>
+                    </ul>
+
+                    <div class="content">
+                        <div class="row-no-margin">
+                            <div class="col-xs-6">
+                                <div class="box payment-method">
+                                    <h4>Pay Online</h4>
+                                    <p>Card/Netbanking</p>
+                                    <input type="radio" name="payment" 
+                                    value="ONLINE">
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6">
+                                <div class="box payment-method">
+
+                                    <h4>Cash on delivery</h4>
+
+                                    <p>You pay when you get it.</p>
+                                    <input type="radio" name="payment" value="COD">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.row-no-margin -->
+
+                    </div>
+                    <!-- /.content -->
+
+<div class="box-footer">
+    <div class="pull-right">
+<button type="submit" class="btn btn-template-main">Continue to Order review<i class="fa fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- /.box -->
+
+
+        </div>
+        <!-- /.col-md-9 -->
+
+        <!-- /.col-md-3 -->
+
+    </div>
+    <!-- /.row-no-margin -->
+
+</div>
+<!-- /.container -->
+</div>
+
+
+
+
+
+
+{% endblock %}

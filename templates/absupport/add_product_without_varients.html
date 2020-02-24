@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+<title>Addiction Bazaar</title>
+{% endblock %}
+
+{% block content %}
+
+<div id="content">
+   <div class="container">
+   	<div class="row">
+   	<h3>{{message}}</h3>
+      {{product_list}}
+         {% for i in products %}
+         <div class="row">
+            <div class="col-sm-4">{{i.name}}</div>
+            <div class="col-sm-4">{{i.category}}</div>
+            <div class="col-sm-4"><a href="{{i.link}}">Link</a></div>
+         </div>
+         {% endfor %}
+         
+   	</div>
+   </div>
+</div>
+
+{% endblock %}

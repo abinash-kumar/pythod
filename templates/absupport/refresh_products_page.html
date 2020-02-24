@@ -1,0 +1,172 @@
+{% extends "base_new.html" %} 
+{% load staticfiles %}
+{% block headContent %}
+<title>Addiction Bazaar - Refresh Products Cache</title>
+
+{% endblock %}
+{% block content %}
+<a href="/ab/dashboard/" style="font-size: 25px;">&lArr; Go to Dashboard</a>
+<div class="container-90">
+    <h1>Products Cash Refresh</h1>
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" id="pBar" style="width:0%"></div>
+    </div>
+    <div id="indexStaus"></div>
+    <select id="categorySelect" style="height: 26px;">
+        <option value="all">All</option>
+        {% for cat in category %}
+        <option value="{{ cat.slug }}">{{cat.name |title }}</option>
+        {% endfor %}
+    </select>
+    <button id="refreshSearchButton">Click to Refresh Products Cache</button>
+    <div class="fr">
+        <a>
+            <button id="clearCashBtn">Clear Cache</button>
+        </a>
+    </div>
+    <br />
+    <hr />
+    <div class="panel panel-default">
+        <div class="panel-heading" style="background:inherit; border: none;">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#collapse2">
+                    <u>All Cache Keys </u>
+                </a>
+            </h4>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse">
+            <ul class="list-group ">
+                <div class="pad-10 container-full">
+                    <center>
+                        <div class="navigation-list-3cols">
+                            <ul>
+                            {% for key in all_keys%}
+                                <li>
+                                    <input type="checkbox" class="cacheKey" value={{key}} />{{ key }}
+                                </li>
+                            {% endfor %}
+                            </ul>
+                            
+                        </div>
+                        <button id="deleteCacheBtn">Delete Cache</button>
+                    </center>
+                </div>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    function CheckIndexStatus() {
+        let total = 0;
+        let indexed = 0;
+        //Api Call
+        $.ajax({
+            type: "POST",
+            url: "/ab/refresh-products-status/",
+            data: {
+                'csrfmiddlewaretoken': csrf_token,
+            },
+            success: function (data) {
+                let t = parseInt(data.total)
+                if (!t) {
+                    t = 0;
+                }
+                let i = parseInt(data.indexed)
+                if (!i) {
+                    i = 0;
+                }
+                total = t;
+                indexed = i;
+            },
+            async: false
+        });
+        //end Api Call
+        console.log(total);
+        console.log(indexed);
+        let percentage = parseInt(indexed * 100 / total);
+        $('#indexStaus').html(indexed + '/' + total + ' indexed(' + percentage + '%)');
+        $('#pBar').css('width', percentage + '%');
+        if (total > indexed || total == 0) {
+            setTimeout(CheckIndexStatus, 200);
+        }
+        $("#clearCashBtn").html('Clear Cache')
+    }
+    $("#refreshSearchButton").click(function () {
+        let categorySlug = $('#categorySelect').val();
+        //Api Call
+        $.ajax({
+            type: "POST",
+            url: "/ab/refresh-products/",
+            data: {
+                'category': categorySlug,
+                'csrfmiddlewaretoken': csrf_token,
+            },
+            success: function (data) {
+                if (data.success) {
+                    $('#indexStaus').html('indexing ... ');
+                }
+                else {
+                    $('#indexStaus').html('Error');
+                }
+
+            },
+            async: false
+        });
+        //end Api Call
+        CheckIndexStatus();
+    });
+
+    $("#clearCashBtn").click(function () {
+        $("#clearCashBtn").html('Clearing...');
+        //Api Call
+        $.ajax({
+            type: "POST",
+            url: "/ab/clear-cache/",
+            data: {
+                'csrfmiddlewaretoken': csrf_token,
+            },
+            success: function (data) {
+                if (data.success) {
+                    $("#clearCashBtn").html('Cache Cleared');
+                }
+            },
+            async: false
+        });
+        //end Api Call
+    });
+
+    $("#deleteCacheBtn").click(function () {
+        let selectedKeys = getSelectedKeys();
+        if(confirm("Delete "+ selectedKeys.toString() +" ?")){
+            $("#deleteCacheBtn").html('Deleting...');
+            //Api Call
+            $.ajax({
+                type: "POST",
+                url: "/ab/delete-cache-key/",
+                data: {
+                    'cacheKeys':selectedKeys,
+                    'csrfmiddlewaretoken': csrf_token,
+                },
+                success: function (data) {
+                    if (data.success) {
+                        location.reload()
+                    }
+                    else{
+                        $("#deleteCacheBtn").html('Error: Try Again');
+                    }
+                },
+                async: false
+            });
+            //end Api Call
+        }
+    });
+
+    function getSelectedKeys(){
+        let checkedKeyList = []
+         $("input:checkbox[class=cacheKey]:checked").each(function () {
+            checkedKeyList.push($(this).val());
+        });
+        return checkedKeyList;
+    }
+</script> 
+{% endblock %}

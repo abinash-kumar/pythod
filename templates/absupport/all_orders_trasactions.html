@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+
+<title>Transaction Wise All Orders - Addiction Bazaar </title>
+
+{% endblock %}
+
+{% block content %}
+<div class="container-90">
+Payment Mode
+<select name="payment_mode" form="date_form">
+    {% for option in payment_mode %}
+        <option value="{{ option }}"
+        {% if option == p_mode %}
+        selected
+        {% endif%}
+        >
+        {{ option }}
+        </option>
+    {% endfor %}
+</select>
+Payment Status 
+<select name="payment_status" form="date_form">
+    {% for option in payment_status %}
+        <option value="{{ option }}"
+        {% if option == p_status %}
+        selected
+        {% endif%}
+        >
+        {{ option }}
+        </option>
+    {% endfor %}
+</select>
+<form action="" method="GET" id="date_form">
+    From Date <input type="date" id="from_date" name="from_date" />
+    - To Date <input type="date" id="to_date" name="to_date" />
+        <input type="submit" id="submit_date"/>
+</form>
+{% if transactions %}
+<div class="table-responsive">
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th> Id </th>
+            <th> User </th>
+            <th> Orders </th>
+            <th> Payment-date </th>
+            <th> Ammount </th>
+            <th> AB Money </th>
+            <th> Payment Mode </th>
+            <th> Payment Status </th>
+            <th> Coupon Applied </th>
+            <th> Discount </th>
+            <th> Taxes </th>
+            <th> Shipping Charge </th>
+        </tr>
+    </thead>
+{% for transaction in transactions %}
+    <tbody>
+        <tr 
+        {% if transaction.payment_status == "COMPLETED" %}
+        class="success"
+        {% elif transaction.payment_status == "PENDING" or transaction.payment_status == "DRAFT" %}
+        class="warning"
+        {% elif transaction.payment_status == "FAILED" or transaction.payment_status == "TAMPERED" or transaction.payment_status == "CANCELLED"  %}
+        class="danger"
+        {% endif %}
+        >
+            <td>{{ transaction.id }} </td>
+            <td>{{ transaction.order.all.0.user }} </td>
+            <td>
+            {% for order in transaction.order.all %}
+            <a target="_blank" href="/ab/orders/{{order.id}}/"> {{order}}[{{order.order_status}}] </a>,
+            {% endfor %}        
+            </td>
+            <td> {{transaction.payment_on}} </td>
+            <td> {{transaction.payment_amount}} </td>
+            <td> {{transaction.payment_from_abmoney}} </td>
+            <td> {{transaction.payment_mode}} </td>
+            <td> {{transaction.payment_status}} </td>
+            <td> {{transaction.coupon_applied}} </td>
+            <td> {{transaction.discount}} </td>
+            <td> {{transaction.taxes}} </td>
+            <td> {{transaction.shipping_charge}} </td>
+        </tr>
+    </tbody>
+{% endfor %}
+</table>
+</div>
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,149 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+
+<title>{{category}} - Addiction Bazaar </title>
+
+<link href="{% static 'product/css/animate.css' %}" rel="stylesheet">
+<link href="{% static 'product/css/custom.css' %}" rel="stylesheet">
+<script src="{% static 'js/knockout-3.4.0.js' %}"></script>
+<link rel="stylesheet" href="{% static 'product/css/multizoom.css' %}" type="text/css" />
+
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'product/js/multizoom.js' %}">
+
+// Featured Image Zoomer (w/ optional multizoom and adjustable power)- By Dynamic Drive DHTML code library (www.dynamicdrive.com)
+// Multi-Zoom code (c)2012 John Davenport Scheuer
+// as first seen in http://www.dynamicdrive.com/forums/
+// username: jscheuer1 - This Notice Must Remain for Legal Use
+// Visit Dynamic Drive at http://www.dynamicdrive.com/ for this script and 100s more
+
+</script>
+
+{% endblock %}
+
+{% block content %}
+<div id="designers-pl"></div>
+<div id="content">
+            <div class="container-product container">
+
+                <p class="text-muted lead text-center">{{category_description}}</p>
+
+                <div class="col-sm-12">
+                    {% if category_image.url != None %}
+                    <div class="banner">
+                        <a href="#">
+                            <img src="{{category_image.url}}" alt="" class="img-responsive">
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="col-sm-12">
+                    <ol class="breadcrumb">
+                      <li><a href="#">Home</a></li>
+                      {% for obj in breadcum_list %}
+                      <li>
+                      <a href="/product/list/{{obj.slug}}/{{obj.id}}">
+                      {{obj.name}}
+                      </a>
+                      </li>
+                      {% endfor %}
+                    </ol>
+                </div>
+
+                <div class="col-sm-12">
+                    <nav role="full-horizontal">
+                        <ul>
+                            {% for obj in sub_categories_list %}
+                            <li>
+                            <a href="/product/list/{{obj.slug}}/{{obj.id}}">
+                            {{obj.name}}
+                            </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="masonry">
+                    {% for obj in product_detail_list %}
+                        <div class="item">
+                            <div class="product">
+                                <div class="image">
+                                    <a href="/product/{{obj.slug}}/{{obj.id}}" 
+                                    rel="{{obj.product_photo_url.0}}">
+                                        <img src="{% static 'img/balls.gif' %}" alt="" class="image1">
+                                    </a>
+                                </div>
+                                <!-- /.image -->
+                                <div class="text">
+                                    <h3>
+                                    <a href="/product/{{obj.slug}}/{{obj.id}}"></a>
+                                    {{obj.name}}
+                                    </h3>
+                                    <p class="price">
+                                    {% if obj.price_after_discount != obj.price %}
+                                    ₹ {{obj.price_after_discount}}</p>
+                                    <p class="price"><del>₹ {{obj.price}}</del></p>
+                                    {% else %}
+                                    ₹ {{obj.price}}
+                                    {% endif %}
+                                    <p class="buttons">
+                                        <a href="#" class="btn btn-default">View detail</a>
+                                        <a href="#" class="btn btn-template-main"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                    </p>
+                                </div>
+                                <!-- /.text -->
+                            </div>
+                            <!-- /.product -->
+                        </div>
+                    {% endfor %}
+                </div>                
+                <!-- /.products -->
+
+                <div class="col-sm-12">
+
+
+                    <div class="pages">
+
+                        <ul class="pagination nav navbar-nav pull-right">
+                        {% if product_detail_list.has_previous %}
+                          <li><a href="?page={{ product_detail_list.previous_page_number }}">Prev</a></li>
+                        {% endif %}
+                        {% for page in product_detail_list.paginator.page_range %}
+                          <li class="{% if product_detail_list.number == page  %}active{% endif %}">
+                          <a href="?page={{page}}">{{ page }}</a></li>
+                        {% endfor %}
+
+                        {% if product_detail_list.has_next %}
+                          <li> <a href="?page={{ product_detail_list.next_page_number }}">Next</a></li>
+                        {% endif %}
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- /.col-sm-12 -->
+
+            </div>
+            <!-- /.container -->
+        </div>
+<script type="text/javascript">
+    var $images = $(".image>a>img");
+
+    $images.each(function(x){
+
+        var $downloadingImage = $("<img>");
+        var image = this;
+
+        $downloadingImage.load(function(){
+        $(image).attr("src", $(this).attr("src"));
+        });
+
+        $downloadingImage.attr("src", this.parentElement.getAttribute("rel"));
+    })
+</script>
+
+{% endblock %}

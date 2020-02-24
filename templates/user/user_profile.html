@@ -1,0 +1,28 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+
+<title>Profile - Addiction Bazaar </title>
+
+<link href="{% static 'product/css/animate.css' %}" rel="stylesheet">
+<link href="{% static 'product/css/custom.css' %}" rel="stylesheet">
+<script src="{% static 'js/knockout-3.4.0.js' %}"></script>
+<link rel="stylesheet" href="{% static 'product/css/multizoom.css' %}" type="text/css" />
+
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'product/js/multizoom.js' %}">
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+<div id="user-profile">
+    
+</div>
+<script type="text/javascript">
+	var tab = {{tab}};
+</script>
+{% endblock %}

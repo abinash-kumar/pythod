@@ -1,0 +1,85 @@
+
+<select name="cat_id" form="cat" >
+
+    {% for category in categories %}
+        <option value="{{ category.id }}">
+        {{ category }}
+        </option>
+    {% endfor %}
+</select>
+<form id="cat" method="POST" action="">{% csrf_token %}
+    <input type="submit" value="Filter Products" />
+</form>
+
+
+
+
+<!-- 
+{% for obj in object_list %}
+<tr>
+<td>{{obj.id}}</td>
+<td><a href="/product/{{ obj.slug }}/{{ obj.id }}" target="_blank" >{{ obj.name }}</a></td>
+ 
+         <td>
+            {% for tag in obj.tags %}
+               {{ tag.tag }} 
+            {% endfor %}
+
+            tag
+
+        </td>
+                <td><a href="/aura/tag/manage/{{ obj.id }}/" target="_blank" >
+            Manage Tags
+            </a>
+        </td>
+{% endfor %} -->
+
+
+
+
+
+
+
+
+<table border="2" style="width: 90%; table-layout: auto; margin: 0 auto">
+    <tr>
+        <th> Product_id </th>
+        <th> Product </th>
+        <th> Tags </th>
+        <th> Manage tags </th>
+    </tr>
+{% for product in products %} 
+    <tr>
+        <td>{{ product.product.id }}  </td>
+        <td><a href="/product/{{ product.product.slug }}/{{ product.product.id }}" target="_blank" >{{ product.product.name }}</a></td>
+        <td>
+            {% for tag in product.tags %}
+               {{ tag.tag }} 
+            {% endfor %}
+        </td>
+        <td><a href="/aura/tag/manage/{{ product.product.id }}/" target="_blank" >
+            Manage Tags
+            </a>
+        </td>
+    </tr>
+{% endfor %}
+
+
+
+</div>
+</table>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if object_list.has_previous %}
+            <a href="?page={{ object_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+        </span>
+
+        {% if object_list.has_next %}
+            <a href="?page={{ object_list.next_page_number }}">next</a>
+        {% endif %}
+    </span>

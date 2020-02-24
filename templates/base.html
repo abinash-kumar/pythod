@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="{% static 'myhome/images/favicon.ico' %}">
+    <meta name="author" content="">
+    <meta charset="utf-8"
+    	  descripion="Addiction Bazaar is India's first most Intelligent platform for Fashion needs.
+					  Intelligent system, supported by creative Homo sapiens.
+					  Offers Quality Products and Services.">
+    
+    <meta name="p:domain_verify" content="13b7de900455057a3eba1f1f6002a33c"/>
+
+
+  	<link rel="apple-touch-icon" sizes="57x57" href="{% static 'myhome/images/apple-icon-57x57.png' %}">
+	<link rel="apple-touch-icon" sizes="60x60" href="{% static 'myhome/images/apple-icon-60x60.png' %}">
+	<link rel="apple-touch-icon" sizes="72x72" href="{% static 'myhome/images/apple-icon-72x72.png' %}">
+	<link rel="apple-touch-icon" sizes="76x76" href="{% static 'myhome/images/apple-icon-76x76.png' %}">
+	<link rel="apple-touch-icon" sizes="114x114" href="{% static 'myhome/images/apple-icon-114x114.png' %}">
+	<link rel="apple-touch-icon" sizes="120x120" href="{% static 'myhome/images/apple-icon-120x120.png' %}">
+	<link rel="apple-touch-icon" sizes="144x144" href="{% static 'myhome/images/apple-icon-144x144.png' %}">
+	<link rel="apple-touch-icon" sizes="152x152" href="{% static 'myhome/images/apple-icon-152x152.png' %}">
+	<link rel="apple-touch-icon" sizes="180x180" href="{% static 'myhome/images/apple-icon-180x180.png' %}">
+	<link rel="icon" type="image/png" sizes="192x192"  href="{% static 'myhome/images/android-icon-192x192.png' %}">
+	<link rel="icon" type="image/png" sizes="32x32" href="{% static 'myhome/images/favicon-32x32.png' %}">
+	<link rel="icon" type="image/png" sizes="96x96" href="{% static 'myhome/images/favicon-96x96.png' %}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{% static 'myhome/images/favicon-16x16.png' %}">
+	<link rel="manifest" href="/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="{% static 'myhome/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'myhome/css/zerogrid.css' %}">
+    <link rel="stylesheet" href="{% static 'myhome/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'myhome/css/responsiveslides.css' %}">
+    <!-- Custom Fonts -->
+    <link href="{% static 'myhome/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <script src="{% static 'myhome/js/jquery-latest.min.js' %}"></script>
+    <script src="{% static 'myhome/js/script.js' %}"></script>
+    <script src="{% static 'js/knockout-3.4.0.js' %}"></script>
+    <script src="{% static 'myhome/js/responsiveslides.min.js' %}"></script>
+    <script src="{% static 'myhome/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'myhome/js/jquery-scrolltofixed-min.js' %}"></script>
+    <link href="{% static 'product/css/animate.css' %}" rel="stylesheet">
+	<link href="{% static 'product/css/style.default.css' %}" rel="stylesheet" id="theme-stylesheet">
+	<link href="{% static 'product/css/custom.css' %}" rel="stylesheet">
+    <script>
+		// You can also use "$(window).load(function() {"
+		$(function () {
+		  // Slideshow 
+		  $("#slider").responsiveSlides({
+		  	auto: true,
+		  	pager: false,
+		  	nav: true,
+		  	speed: 500,
+		  	namespace: "callbacks",
+		  	before: function () {
+		  		$('.events').append("<li>before event fired.</li>");
+		  	},
+		  	after: function () {
+		  		$('.events').append("<li>after event fired.</li>");
+		  	}
+		  });
+		});
+		$(document).ready(function() {
+
+        // Dock the header to the top of the window when scrolled past the banner.
+        // This is the default behavior.
+
+       
+        // $('#menuwrapper').scrollToFixed({marginTop: 73});
+
+        // Dock the footer to the bottom of the page, but scroll up to reveal more
+        // content if the page is scrolled far enough.
+
+
+        // Dock each summary as it arrives just below the docked header, pushing the
+        // previous summary up the page.
+
+        
+    });
+	
+	</script>
+	
+	
+	<!--[if lt IE 8]>
+       <div style=' clear: both; text-align:center; position: relative;'>
+         <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+           <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an dated browser. For a faster, safer browsing experience, upgrade for free today." />
+        </a>
+      </div>
+      <![endif]-->
+    <!--[if lt IE 9]>
+		<script src="js/html5.js"></script>
+		<script src="js/css3-mediaqueries.js"></script>
+		<![endif]-->
+	{% block headContent %}
+
+	{% endblock %}
+
+	</head>
+
+<body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82397300-1', 'auto');
+  ga('send', 'pageview');
+  ga('set', 'userId', '{{request.user}}'); // Set the user ID using signed-in user_id.
+</script>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1787057741532094',
+      xfbml      : true,
+      version    : 'v2.7'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '308519566169526');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=308519566169526&ev=PageView&noscript=1"
+/></noscript>
+<!-- DO NOT MODIFY -->
+<!-- End Facebook Pixel Code -->
+
+	{% if developing %}
+	<style type="text/css">
+	html { 
+    	height:100%;
+	}
+	body { 
+	    min-height:100%;
+	}
+	@media only screen and (min-width: 1240px) {
+		.bgimage {
+			background: url({% static 'myhome/images/main.jpg' %}) no-repeat;
+			background-size: 100%;
+			height: 100%;
+		}
+		.mlogo {
+			width: 30%;
+		}
+	}
+	@media only screen and (max-width: 1240px) {
+		.bgimage {
+			background: url({% static 'myhome/images/main.jpg' %}) no-repeat;
+			min-height: 100%;
+			background-position: 55%;
+		}
+	}
+		
+	</style>
+	<div class="bgimage">
+	<article style="width:80%; background-color: rgba(14, 12, 12, 0.62);color:#fff; margin: 0 auto;top:20px;left: 20%;padding:20px;margin-left: 10%">
+    <img class='mlogo' src="{% static 'myhome/images/logo-new.png' %}" />
+    <br>
+    <br>
+    <br>
+    <h3>Dear User, THANKS for Visiting</h3>
+
+	<p>I am not well; my team is putting all their efforts to cure me.<p>
+
+	<p>Your every word is like tonic for me. Please leave a message, it will help me to revive fast.</p>
+
+	<h3>Who am I?</h3>
+	<p>I, Addiction Bazaar, like you can think, can feel and can even talk except that I dont look like you. I can only cherish my fashion by looking at you. My team is trying to make me more intelligent so that I can give my opinion to you.</p>
+
+	<h3>Who is my team ? </h3>
+	<p>We are a few who have left their Jobs, wanted to do something sublime, something that we love and something that you love too.</p>
+	<h5>PS : I don’t want to be a Company, please help me to be your friend.</h5>
+    </article>
+    </div>
+    <script>
+        var bkRawUrl = function(){return window.location.href}();
+    (function (doc, scriptPath, apiKey) {
+        var sc, node, today=new Date(),dd=today.getDate(),mm=today.getMonth()+1,yyyy=today.getFullYear();if(dd<10)dd='0'+dd;if(mm<10)mm='0'+mm;today=yyyy+mm+dd;
+        window.BKShopApiKey =  apiKey;
+        window.BeeketingApiKey =  '';
+        sc = doc.createElement("script");
+        sc.type = "text/javascript";
+        sc.async = !0;
+        sc.src = scriptPath + '?' + today;
+        node = doc.getElementsByTagName("script")[0];
+        node.parentNode.insertBefore(sc, node);
+    })(document, 'https://sdk.beeketing.com/js/beeketing.js', '6550bbeebceed0cd0725441d4555a656');
+	</script>
+
+	{% else %}
+	
+
+	<div class="wrap-body" id="main">
+
+		<!--////////////////////////////////////Header-->
+		
+
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+		    	<div class="modal-content">
+		      		<div class="modal-header login_modal_header">
+		        		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        		<h2 class="modal-title" id="myModalLabel">Login to Your Account</h2>
+		      		</div>
+		      		<div class="modal-body login-modal">
+		      			<p></p>
+		      			<br/>
+		      			<div class="clearfix"></div>
+		      			<div>
+			        		<div class='modal-body-left'>
+								<form method="POST" id="login-user-header" data-bind="submit: loginUser">{% csrf_token %}
+									<div class="form-group">
+							      		<input type="text" id="username" placeholder="Enter Email/Mobile" data-bind='value: username' class="form-control login-field">
+							      		<i class="fa fa-user login-field-icon"></i>
+							    	</div>
+
+							    	<div class="form-group">
+							    	  	<input type="password" id="login-pass" placeholder="Password" data-bind='value: password' class="form-control login-field">
+							      		<i class="fa fa-lock login-field-icon"></i>
+							    	</div>
+							    	<button href="#" type="submit" class="btn btn-success modal-login-btn">Login</button>
+							    	<span class="error" data-bind='visible: error, text:errorText'></span>
+							    </form>
+				            	<a href="#" class="login-link text-center">Lost your password?</a>
+			        		</div>
+
+			        		<div class='modal-body-right'>
+			        			<div class="modal-social-icons">
+			        				<a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" class="btn btn-default facebook"> <i class="fa fa-facebook modal-icons"></i> Sign In with Facebook </a>
+			        				<a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}" class="btn btn-default google"> <i class="fa fa-google-plus modal-icons"></i> Sign In with Google </a>
+			        			</div> 
+			        		</div>	
+			        		<div id='center-line'> OR </div>
+			        	</div>																												
+		        		<div class="clearfix"></div>
+
+		        		<div class="form-group modal-register-btn">
+		        			
+		        		</div>
+		      		</div>
+		      		<div class="clearfix"></div>
+		      		<div class="modal-footer login_modal_footer">
+		      		</div>
+		    	</div>
+		  	</div>
+		</div>
+		<div id="block-main">
+		
+		{% include "header.html" %}
+		
+		
+		
+		{% block content %}
+
+		{% endblock %}
+
+		</div>
+		{% include "footer.html" %}
+
+
+		<script type="text/javascript">
+			var user = '{{request.user}}';
+			var csrf_token = "{{csrf_token}}";
+		</script>
+
+		<script src="{% static 'js/ab/productmain.js' %}"></script>
+		<script src="{% static 'js/bundle.js' %}"></script>
+
+	</div>
+	{% endif %}
+</body>
+</html>

@@ -1,0 +1,390 @@
+{% extends "sellerbase.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<!--////////////////////////////////////Container-->
+<div class="reg-form">
+  <div class="mui-panel register">
+    <!-- content -->
+
+    <form method=POST> {% csrf_token %}
+      <legend>Register with us</legend>
+      <div class="mui-textfield mui-textfield--float-label">
+        <input type="text" name="name" 
+        data-bind='value: name, valueUpdate: "afterkeydown",event: { blur: validateName }'>
+        <span class="error" data-bind='visible: nameError, text:nameText'></span>
+        <label>Full Name</label>
+      </div>
+      <p id="error" style="display:none;">this is required</p>
+      <div class="mui-textfield mui-textfield--float-label">
+        <input type="tel" name="mobile" data-bind='value: mobile,event: { blur: validateMobile }'>
+        <span class="error" data-bind='visible: mobileError, text:mobileText'></span>
+        <label>Mobile</label>
+      </div>
+      <div class="mui-textfield mui-textfield--float-label">
+        <input type="email" name="email" data-bind='value: email,event: { blur: validateEmail }'>
+        <span class="error" data-bind='visible: emailError, text:emailText'></span>
+        <label>Email (Optional)</label>
+      </div>
+      <div class="mui-checkbox">
+        <label>
+          <input type="checkbox" value="true" data-bind="checked: term">
+          <p class="small">I accept Addiction Bazaar's Seller 
+          <a href="http://addictionbazaar.com/blog/doc/seller-terms">Terms and Conditions</a>
+          </p>
+          <span class="error" data-bind='visible: termError'>Please accept term and condition</span>
+        </label>
+      </div>
+      <button type="submit" class="mui-btn mui-btn--raised pull-left" data-bind="click : validate" >Open Your Shop</button>
+      <a href="/login/" class="mui-btn mui-btn--raised pull-left">Already Reistred? Login</a>
+    </form>
+  </div>
+</div>
+
+<div id="myModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm">
+  <div class="modal-content mymodal">
+      <h3>Enter OTP</h3>
+      <p>Please check your Email, we have send the OTP.</p>
+      <form class="mui-form--inline">
+        <div class="mui-textfield">
+          <input type="text" data-bind="value : otp" >
+        </div>
+        <button class="mui-btn" data-bind="click : check">submit</button>
+        <span data-bind='visible: otpError, text:otpText'></span>
+        <span class="otp-error">Invalid OTP</span>
+      </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+
+  function checkExistingMobile (mobile){
+    var status = false;
+    $.ajax({
+      type: "POST",
+      url:"/check-existing-mobile/",
+      data: {'csrfmiddlewaretoken' : "{{csrf_token}}",
+             'mobile':mobile
+      }, 
+      success: function(data) {
+          if(data.success){
+            status = true;
+          }
+          else {
+            status = false;
+          }
+      },
+      async:false
+    });
+    return status;
+  }
+
+  function checkExistingEmail(email){
+    var status = false;
+    $.ajax({
+      type: "POST",
+      url:"/check-existing-email/",
+      data: {'csrfmiddlewaretoken' : "{{csrf_token}}",
+             'email':email
+      }, 
+      success: function(data) {
+          if(data.success){
+            status = true;
+          }
+          else {
+            status = false;
+          }
+      },
+      async:false
+    });
+    return status;
+  }
+
+  function AppViewModel() {
+    var self = this;
+    var is_error_on_name = null;
+    var is_error_on_mobile = null;
+    var is_error_on_email = null;
+    self.name = ko.observable("");
+    self.mobile = ko.observable("");
+    self.email = ko.observable("");
+    self.nameError = ko.observable(false);
+    self.mobileError = ko.observable(false);
+    self.emailError = ko.observable(true);
+    self.nameText = ko.observable();
+    self.mobileText = ko.observable();
+    self.emailText = ko.observable();
+    self.term = ko.observable(false);
+    self.termError = ko.observable(false);
+    self.validateName = function(){
+      if(self.name() != "" && self.name().length <= 60) {
+        self.is_error_on_name = false;
+        self.nameError(false);
+      }
+      else if (self.name() == ""){
+        self.showErrorName("This should not be empty");
+        self.is_error_on_name = true;
+      }
+      else {
+        self.showErrorName("Name should be less than 60 Characters");
+        self.is_error_on_name = true;
+      }
+    }
+    self.validateMobile = function(){
+      if (self.mobile() != "" && /^(\+\d{1,3}[- ]?)?\d{10}$/.test(self.mobile()) ){
+        var flag = checkExistingMobile(self.mobile());
+        if(flag){
+          self.is_error_on_mobile = false;
+          self.mobileError(false);
+        }
+        else{
+          self.showErrorMobile("This is existing mobile number, please try login");
+          self.is_error_on_mobile = true;
+        }
+      }
+      else if (self.mobile() == ""){
+        self.showErrorMobile("This should not be empty");
+        self.is_error_on_mobile = true;
+      }
+      else {
+        self.showErrorMobile("Please enter valid Mobile Number");
+        self.is_error_on_mobile = true;
+      }
+    }
+    self.validateEmail = function(){
+      if (self.email() != "" ){
+        var flag = checkExistingEmail(self.email());
+        if(flag){
+          self.is_error_on_email = false;
+          self.emailError(false);
+        }
+        else{
+          console.log("existing email")
+          self.showErrorEmail("This is existing Email, please try login");
+          self.is_error_on_email = true;
+        }
+      }
+      else if (self.email() == ""){
+        self.showErrorEmail("This should not be empty");
+        self.is_error_on_email = true;
+      }
+      else {
+        self.showErrorEmail("Please enter valid Mobile Number");
+        self.is_error_on_email = true;
+      }
+    }
+    self.validate = function () {
+      self.validateName();
+      self.validateMobile();
+      self.validateEmail();
+      if (!self.is_error_on_mobile && !self.is_error_on_name && !self.is_error_on_email ){
+        (self.term() === true) ? self.open_modal_send_otp(): self.termError(true);    
+      }
+    }
+    self.showErrorName = function(message) {
+      self.nameError(true);
+      self.nameText(message);
+    }
+    self.showErrorMobile = function(message) {
+      self.mobileError(true);
+      self.mobileText(message);
+    }
+    self.showErrorEmail = function(message) {
+      self.emailError(true);
+      self.emailText(message);
+    }
+    self.open_modal_send_otp = function(){
+      $('#myModal').modal({ backdrop: 'static',keyboard: false });
+      send_otp(self.mobile,self.email)
+  }
+  var error = false;
+  self.otp = ko.observable("")
+  self.otpError = ko.observable(false)
+  self.otpText = ko.observable()
+  self.check = function(){
+    if (self.otp() != ""){
+      self.error = false;
+      self.otpError(false);
+   }
+   else {
+    self.error = true;
+    self.showError("This should not be empty");
+   }
+   if (!self.error){
+    self.otpError(false)
+    verify_otp(self.otp(),self.name(),self.mobile(),self.email());
+    }
+  }
+  self.showError = function(message) {
+      self.otpError(true);
+      self.otpText(message);
+    }
+}
+ko.applyBindings(new AppViewModel());
+</script>
+<script type="text/javascript">
+var resend_count = 0;
+function close_popup(){
+    $('#otp_popup').addClass('hide');
+    $('#sent_otp').addClass('hide');
+    $('#resend_otp').text('Resend OTP');
+}
+
+function send_otp(mobile,email,callback) {
+    $('.otp-error').hide();
+    console.log(mobile);
+    $.post(
+      "/sendotp/",
+     {'csrfmiddlewaretoken' : "{{csrf_token}}", 'mobile':mobile,'email':email}, 
+     function (data) {
+        if (data.success) {
+            $('#otp_popup').removeClass('hide');
+            $('#mob-num').text($('#contact-me-num').val());
+            // save_lead_callback = callback;
+        } else {
+            $('.contact-me-error').text('SMS delivery failed. Please try again');
+            $('.contact-me-error').show();
+        }
+    });
+}
+
+function resend_otp () {
+    $('.otp-error').hide();
+    var otp_button = $('#otp_submit_btn');
+    var resend_btn = $('#resend_otp');
+    if(resend_count > 2){
+        $('#resending_otp').addClass('hide');
+        resend_btn.addClass('hide');
+        $('#sent_otp').addClass('hide');
+        return;
+    }
+    resend_count++;
+    resend_btn.addClass('hide');
+    $('#sent_otp').addClass('hide');
+    $('#resending_otp').removeClass('hide');
+    $('#wrong-number').addClass('hide');
+    otp_button.addClass('disable');
+    otp_button.disabled = false;
+    $.post("/sendotp/", {'csrfmiddlewaretoken' : "{{csrf_token}}"}, function (data) {
+        if (data.success) {
+            otp_button.removeClass('disable');
+            otp_button.disabled = false;
+        } else {
+            $('.contact-me-error').text('SMS delivery failed. Please try again');
+            $('.contact-me-error').show();
+        }
+        $('#resending_otp').addClass('hide');
+        $('#sent_otp').removeClass('hide');
+        $('#wrong-number').removeClass('hide');
+        resend_btn.removeClass('hide');
+        resend_btn.text('Send Again');
+    });
+}
+
+function verify_otp (otp,name,mobile,email) {
+    $('.otp-error').hide();
+    $.post("/verifyotp/",
+        {'data': JSON.stringify({'otp': otp,'name':name,'mobile':mobile, 'email':email}), 
+        'csrfmiddlewaretoken' : "{{csrf_token}}"},
+        function (result) {
+            if (result.success) {
+                window.location='/setpassword/';
+            } else {
+                $('.otp-error').show();
+            }
+        },
+        'json'
+    );
+}
+
+$(document).on('click', '#otp_submit_btn', function() {
+    verify_otp($('#otp').val());
+});
+</script>
+<section class="content-box"><!--Start Box-->
+  <div class="col-md-12 text-center">
+    <h3 class="title-home">
+      <span>Here are 3 simple tips</span>
+    </h3>
+  </div>
+  <div class="zerogrid">
+    <div class="row">
+      <div class="col-1-3">
+        <div class="wrap-col items">
+
+          <h3>Widen your Horizon</h3>
+          <div class="seller-icons">
+          <img src="{% static 'seller/img/widen_your_horizon.jpg' %}">
+          </div>
+          <p>Why cater the local crowd?</p>
+          <p>When you can</p>
+          <p>TARGET AROUND</p>
+          <p><strong>2 Million People</strong></p>
+        </div>
+      </div>
+      <div class="col-1-3">
+        <div class="wrap-col items">
+          <h3>Go Online!!</h3>
+          <div class="seller-icons">
+          <img src="{% static 'seller/img/go_online.jpg' %}">
+          </div>
+          <p>The whole world has moved online</p>
+          <p>When will you?</p>
+          <p>Sell your product on an online marketplace & reach out to your customers individually!</p>
+        </div>
+      </div>
+      <div class="col-1-3">
+        <div class="wrap-col items">
+          <h3>Money Saved = Money Earned</h3>
+          <div class="seller-icons">
+          <img src="{% static 'seller/img/money_saved.jpg' %}">
+          </div>
+          <p>Setting up your ecommerce is quite expensive.</p>
+          <p>So take the easy way out !</p>
+          <p><strong>Sell your products though Addiction Bazaar</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="content-box"><!--Start Box-->
+  <div class="col-md-12 text-center">
+    <h3 class="title-home">
+      <span>Why Sell Online ?</span>
+    </h3>
+  </div>
+  <div class="zerogrid">
+    <div class="row">
+      <div class="col-1-3">
+        <div class="wrap-col items">
+          <div class="seller-icons">
+          <img src="{% static 'seller/img/timely_delivery.jpg' %}">
+          </div>
+          <h3>Hassle free and timely delivery</h3>
+          <p>without your needing to worry about the product</p>
+        </div>
+      </div>
+      <div class="col-1-3">
+        <div class="wrap-col items">
+          <div class="seller-icons">
+          <img src="{% static 'seller/img/target_population.jpg' %}">
+          </div>
+          <h3>2 Million potential customers</h3>
+          <p>that the traffic you can tap online !</p>
+        </div>
+      </div>
+      <div class="col-1-3">
+        <div class="wrap-col items">
+          <div class="seller-icons">
+          <img src="{% static 'seller/img/easy_paymet.jpg' %}">
+          </div>
+          <h3>Easy Payment Options</h3>
+          <p>with no middlemen invloved! connecting with your customers</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

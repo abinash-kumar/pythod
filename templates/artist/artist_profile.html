@@ -1,0 +1,24 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+{% block headContent %}
+
+<title>{{ title }}</title>
+<meta name="description" content="{{description}}">
+<meta name="image" content="{{image}}">
+<meta name="keywords" content="{{keywords}}">
+<!-- Schema.org for Google -->
+<meta itemprop="name" content="{{title}}">
+<meta itemprop="description" content="{{description}}">
+<meta itemprop="image" content="{{image}}">
+<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+<meta name="og:title" content="{{title}}">
+<meta name="og:description" content="{{description}}">
+<meta name="og:image" content="{{image}}">
+<meta name="og:site_name" content="https://www.addictionbazaar.com/"> 
+{% endblock %}
+{% block content %}
+
+<div id="artist-profile-new"></div>
+
+
+{% endblock %}

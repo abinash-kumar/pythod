@@ -1,0 +1,140 @@
+{% extends "sellerbasedashboard.html" %}
+{% load staticfiles %}
+
+
+{% block subcontent %}
+
+<!--////////////////////////////////////Container-->
+            <div id="content">
+            <div class="container">
+
+
+                <div class="row">
+
+                    <!-- *** LEFT COLUMN ***
+       _________________________________________________________ -->
+
+                    <div class="col-md-12" id="customer-orders">
+
+                        <p class="text-muted lead">Your all products - </p>
+
+                        <div class="box">
+
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Varient</th>
+                                            <th>Price</th>
+                                            <th>Category</th>
+                                            <th>Quantity Left</th>
+                                            <th>Added on</th>
+                                            <th>Is Active</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+{% for product in product_list %}
+                                        <tr>
+                                          <th>{{product.name}}</th>
+                                          <td>
+                                            {{product.missing_data}}
+                                            <a target='_blank' href="https://www.addictionbazaar.com/ab/product/update-varient/{{product.id}}/">update</a>
+                                          </td>
+                                          <td>{{product.price}}</td>
+                                          <td>
+                                            <img src="{% static 'img/loader.gif' %}" class="hide product_{{product.id}}">
+                                            <p class="show product_{{product.id}}">{{product.category}}</p>
+                                            <select class="hide" name='product_{{product.id}}'>
+                                             {% for cat in all_categories %}
+                                              <option value="{{cat}}">{{cat}}</option>
+                                             {% endfor %}
+                                            </select>
+                                            <button name='product_{{product.id}}' class='font-10' onclick="updateCategory({{product.id}})">Edit</button>
+                                          </td>
+                                          <td>{{product.quantity}}</td>
+                                          <td>{{product.added_on}}</td>
+                            {% if product.active %}
+                            <td><input type="checkbox" checked></td>
+                            {% else %}
+                            <td><input type="checkbox"></td>
+                            {% endif %}
+                                          <td>
+                                          <a target='_blank' href="https://www.addictionbazaar.com/product/{{product.slug}}/{{product.id}}" class="btn btn-template-main btn-sm">View</a>
+                                        </tr>
+{% endfor %}
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+
+                        </div>
+                        <!-- /.box -->
+
+                    </div>
+                    <!-- /.col-md-9 -->
+
+                    <!-- *** LEFT COLUMN END *** -->
+
+                    <!-- *** RIGHT COLUMN ***
+       _________________________________________________________ -->
+
+                  
+                    <!-- *** RIGHT COLUMN END *** -->
+
+                </div>
+
+
+            </div>
+            <!-- /.container -->
+        </div>
+
+<script type="text/javascript">
+    function updateCategory(productId){
+        if($("button[name='product_" + productId+ "']").html() == 'Edit'){
+            $("button[name='product_" + productId+ "']").html('update')
+            $("select[name='product_" + productId+ "']").removeClass("hide");
+            $("select[name='product_" + productId+ "']").addClass("show");
+            $("p.product_" + productId).removeClass("show");
+            $("p.product_" + productId).addClass("hide");
+        }
+        else {
+            debugger
+            category = $("select[name='product_" + productId).val()
+            $("button[name='product_" + productId+ "']").removeClass('show')
+            $("button[name='product_" + productId+ "']").addClass('hide')
+
+            $("img.product_" + productId).removeClass("hide");
+            $("img.product_" + productId).addClass("show");
+
+            $.ajax({
+                type: "POST",
+                url:"/update_category/",
+                data: {'csrfmiddlewaretoken' : csrf_token,
+                     'productId': productId,
+                     'category': category,
+                },
+                success: function(data) {
+                  if(data.success){
+                        $("img.product_" + productId).removeClass("show");
+                        $("img.product_" + productId).addClass("hide");
+
+                        $("select[name='product_" + productId+ "']").removeClass("show");
+                        $("select[name='product_" + productId+ "']").addClass("hide");
+                        
+                        $("p.product_" + productId).removeClass("hide");
+                        $("p.product_" + productId).addClass("show");
+                        $("p.product_" + productId).text(category)
+                  }
+                  else {
+                    console.log("unable to delete cart");
+                  }
+                },
+                async:false
+            });
+        }
+    }
+</script>
+{% endblock %}

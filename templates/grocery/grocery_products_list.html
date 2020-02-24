@@ -1,0 +1,134 @@
+{% extends "grocerybase.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container marketing">
+
+  <!-- Three columns of text below the carousel -->
+  <div class="row1" style="margin:0 auto; width:100%;">
+  {% for obj in sub_categories_list %}
+  <a href="/grocery/list/{{obj.slug}}/{{obj.id}}">
+    <div class="col-xs-6 home-item-grocery">
+      <img class="img-circle" src="{{obj.image}}" alt="{{obj.name}}" width="140" height="140">
+      <h4 class="item-title with-padding">{{obj.name}}</h4>
+    </div><!-- /.col-lg-4 -->
+  </a>
+  {% endfor %}
+  
+  </div><!-- /.row -->
+
+ <div class="row1" style="margin:0 auto; width:100%;">
+  {% for obj in sub_categories_list %}
+  <a href="/grocery/list/{{obj.slug}}/{{obj.id}}">
+    <div class="col-xs-6 home-item-grocery">
+      <img class="img-circle" src="{{obj.image}}" alt="Generic placeholder image" width="140" height="140">
+      <h4 class="item-title with-padding">{{obj.name}}</h4>
+    </div><!-- /.col-lg-4 -->
+  </a>
+  {% endfor %}
+  
+  </div><!-- /.row -->
+
+
+<!--  -->
+{% for obj in product_detail_list %}
+  <div class="col-xs-6 home-item-grocery-product">
+      <div class="product">
+          <div class="image">
+              <a href="/grocery/product/{{obj.slug}}/{{obj.id}}">
+                  <img src="{{obj.product_photo.0.url}}" 
+                  alt="" class="image1">
+              </a>
+          </div>
+          <!-- /.image -->
+          <div class="text">
+              <h4 class="grocery-name">
+              <a href="/grocery/product/{{obj.slug}}/{{obj.id}}"></a>
+              {{obj.name}}
+              </h4>
+              <p class="price">
+              {% if obj.price_after_discount != obj.price %}
+              ₹ {{obj.price_after_discount}}</p>
+              <p class="price"><del>₹ {{obj.price}}</del></p>
+              {% else %}
+              ₹ {{obj.price}}
+              {% endif %}
+              <p class="buttons">
+                  <a href="/grocery/product/{{obj.slug}}/{{obj.id}}" class="btn btn-default">View</a>
+                  <a data-bind="click : function() { addThisProduct({{obj.id}}) }" class="btn btn-template-main"><i class="fa fa-shopping-cart"></i> Add</a>
+              </p>
+          </div>
+          <!-- /.text -->
+      </div>
+      <!-- /.product -->
+  </div>
+{% endfor %}
+
+
+<div class="col-sm-12">
+  <div class="pages">
+
+      <ul class="pagination nav navbar-nav pull-right">
+      {% if product_detail_list.has_previous %}
+        <li><a href="?page={{ product_detail_list.previous_page_number }}">Prev</a></li>
+      {% endif %}
+      {% for page in product_detail_list.paginator.page_range %}
+        <li class="{% if product_detail_list.number == page  %}active{% endif %}">
+        <a href="?page={{page}}">{{ page }}</a></li>
+      {% endfor %}
+
+      {% if product_detail_list.has_next %}
+        <li> <a href="?page={{ product_detail_list.next_page_number }}">Next</a></li>
+      {% endif %}
+      </ul>
+  </div>
+
+</div>
+<!--  -->
+
+
+
+  <!-- START THE FEATURETTES -->
+
+  <!-- /END THE FEATURETTES -->
+
+
+  <!-- FOOTER -->
+
+</div><!-- /.container -->
+
+<script type="text/javascript">
+  function addToCart(productId) {
+    $.ajax({
+                type: "POST",
+                url:"/product/add-cart/",
+                data: {'csrfmiddlewaretoken' : csrf_token,
+                     'productId':productId,
+                     'update_in':'CART',
+                     'cookie': document.cookie
+                },
+                success: function(data) {
+                  if(data.success){
+                    console.log("added succesfully");
+                    if (getCookie('token') == "")
+                        setCookie('token',data.token,30);
+                    value = getCookie('cart') == "" ? 0 :parseInt(getCookie('cart'));
+                    setCookie('cart',value+1,30)
+                    self.cartValue(value+1)
+                  }
+                  else {
+                    console.log("some error");
+                  }
+                },
+                async:false
+            });
+  }
+</script>
+
+{% endblock %}

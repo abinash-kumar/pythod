@@ -1,0 +1,90 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+{% block content %}
+
+
+
+<!--////////////////////////////////////Container-->
+<style type="text/css">
+@import 'https://fonts.googleapis.com/css?family=Roboto+Slab:100';
+  p {
+    color: black;
+    font-family: 'Roboto Slab', serif;
+    font-weight: 200;
+    letter-spacing: 1px;
+  }
+  ul li {
+    
+  }
+  h4 {
+    margin:1.5em 0;
+    text-align:start;
+    font-size:1.25em;
+    font-weight:300;
+    line-height:1.5;
+    font-family: 'Roboto Slab', serif;
+  }
+</style>
+<section id="container" style="width:100%">
+
+
+<div class="container">
+  <div class="row">
+    
+    <div class="col-md-12"> 
+      
+      <div class="panel">
+        <div class="panel-body">
+     
+          <!--/stories-->
+         {% for p in post %}
+        <div class="row">    
+            <br>
+            <div class="col-md-2 col-sm-3 text-center">
+              <a class="story-title" href="#"><img alt="" src="{{p.image.url  }}" 
+              style="width:100px;height:100px" class="img-circle"></a>
+            </div>
+            <div class="col-md-10 col-sm-9">
+              <div class="row">
+                <div class="col-xs-9">
+                  <h3>{{p.title}}</h3>
+                  <p>{{p.content | safe}}</p>
+                  <small style="font-family:courier,'new courier';" class="text-muted"><a href="/blog/{{p.slug}}" class="text-muted">Read More</a></small>
+                  </h4></div>
+                <div class="col-xs-3"></div>
+              </div>
+              <br><br>
+            </div>
+          </div>
+          <hr>
+          {% endfor %}
+
+          <!--/stories-->
+          
+          
+          <ul class="pagination nav navbar-nav pull-right">
+          {% if post.has_previous %}
+              <li><a href="?page={{ post.previous_page_number }}">Prev</a></li>
+          {% endif %}
+          {% for page in post.paginator.page_range %}
+              <li class="{% if post.number == page  %}active{% endif %}">
+              <a href="?page={{page }}">{{ page }}</a></li>
+          {% endfor %}
+
+          {% if post.has_next %}
+              <li> <a href="?page={{ post.next_page_number }}">Next</a></li>
+          {% endif %}
+           </ul>
+        </div>
+      </div>
+                                                                                       
+	                                                
+                                                      
+   	</div><!--/col-12-->
+  </div>
+</div>
+         <!-- end of copied template  -->
+
+
+
+	{% endblock %}

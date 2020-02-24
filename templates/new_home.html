@@ -1,0 +1,107 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+{% block headContent %}
+<!-- COMMON TAGS -->
+<meta charset="utf-8">
+<!-- Search Engine -->
+<title>An online website to print and customize Tshirts, Hoodies and Sweat Shirts - Addiction Bazaar</title>
+
+<meta name="description" content="Shop online like never before, only at Addiction Bazaar. Customized and affordable price, try some more!. Free shipping, Cash on delivery available.">
+<meta name="image" content="https://www.addictionbazaar.com/uploads/product_photo/447/1244/2017-11-30123137819411.jpg">
+<!-- Schema.org for Google -->
+<meta itemprop="name" content="Addiction Bazaar">
+<meta itemprop="description" content="Shop online like never before, only at Addiction Bazaar. Customized and affordable price, try some more!. Free shipping, Cash on delivery available.">
+<meta itemprop="image" content="https://www.addictionbazaar.com/uploads/product_photo/447/1244/2017-11-30123137819411.jpg">
+<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+<meta name="og:title" content="Addiction Bazaar">
+<meta name="og:description" content="Shop online like never before, only at Addiction Bazaar. Customized and affordable price, try some more!. Free shipping, Cash on delivery available.">
+<meta name="og:image" content="https://www.addictionbazaar.com/uploads/product_photo/447/1244/2017-11-30123137819411.jpg">
+<meta name="og:url" content="https://www.addictionbazaar.com/">
+<meta name="og:site_name" content="Addiction Bazaar">
+<meta name="fb:app_id" content="1787057741532094">
+<meta name="og:type" content="website">
+
+<link rel="stylesheet" href="{% static 'css/swiper.css' %}"> 
+{% endblock %}
+ {% block content %}
+
+
+<div id="home"></div>
+
+
+<div class="panel-group container-full">
+    <div class="panel panel-default">
+        <div class="panel-heading" style="background:inherit;">
+            <h4 class="panel-title">
+                <a href="#collapse1">
+                    <h1 class="ribbon"><strong class="ribbon-c">About Us</strong></h1>
+                </a>
+                
+            </h4>
+        </div>
+        <div id="collapse1" >
+            <ul class="list-group ">
+                <div class="pad-10 container-full">
+                    <center>
+                        <div style="width:70%">
+                            {% include "about_us_content.html"%}
+                        </div>
+                    </center>
+                </div>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<!--////////////////////////////////////Container-->
+
+
+<script type='text/javascript'>
+    $(document).ready(function () {
+        $("#openModal").modal('show');
+    });
+
+    $(document).ready(function () {
+
+        $('.carousel[data-type="multi"] .item').each(function () {
+            var next = $(this).next();
+            if (!next.length) {
+                next = $(this).siblings(':first');
+            }
+            next.children(':first-child').clone().appendTo($(this));
+
+            for (var i = 0; i < 4; i++) {
+                next = next.next();
+                if (!next.length) {
+                    next = $(this).siblings(':first');
+                }
+
+                next.children(':first-child').clone().appendTo($(this));
+            }
+        });
+        $('.carousel2[data-type="multi"] .item').each(function () {
+            var next = $(this).next();
+            if (!next.length) {
+                next = $(this).siblings(':first');
+            }
+            next.children(':first-child').clone().appendTo($(this));
+
+            for (var i = 0; i < 2; i++) {
+                next = next.next();
+                if (!next.length) {
+                    next = $(this).siblings(':first');
+                }
+
+                next.children(':first-child').clone().appendTo($(this));
+            }
+        });
+
+    });
+
+</script>
+<script type="text/javascript">
+    amplitude.getInstance().logEvent('VISIT_HOMEPAGE');
+    //Define first typing example:
+</script>
+ {% endblock %}

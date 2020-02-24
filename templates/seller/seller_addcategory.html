@@ -1,0 +1,84 @@
+{% extends "sellerbasedashboard.html" %}
+{% load staticfiles %}
+{% block subcontent %}
+
+<!--////////////////////////////////////Container-->
+<div id="content">
+	<div class="container">
+
+
+		<div class="col-sm-5 col-md-6">
+			<p class="form-heading">Select Category of Product</p>
+		</div>
+		<div class="col-sm-5 col-md-6">
+			<select class="selectpicker" data-bind="value: selectedCat,event: { change: fetchSubCategories }" data-live-search="true" title="Please select a category ..." required>
+				{% for key, value in category.items %} 
+				<option value="{{key}}" >{{value}}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<!-- /.container -->
+
+		<div class="col-sm-5 col-md-6" data-bind="foreach : childFields">
+			<select class="selectpicker" data-bind="value: childSelectedCategory,event: { change: fetchSubSubCategories }" data-live-search="true" title="Please select a category ..." required>
+				<!-- ko foreach: options -->
+				<option databind= "value : id, text : name"></option>  
+				<!-- /ko --> 
+			</select>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+
+function Options(key,value){
+	self.id = ko.observable();
+	self.name = ko.observable();
+}
+function ChildField(values) {
+	var self = this;
+	self.childSelectedCategory = ko.observable();
+	self.options = ko.observableArray([]);
+	for(var prop in values){
+		self.options.push(new Option(prop,values[prop]));
+	}
+	self.fetchSubSubCategories = function(){
+	$.post(
+	      	"/get-child-category/",
+	     	{'csrfmiddlewaretoken' : "{{csrf_token}}",
+	      	'parent': self.childSelectedCategory()
+	      }, 
+	     function (data) {
+	        if (data.success) {
+	        	values = data.childs
+	        	self.childFields.push(new ChildField(values));        }
+	      });
+	};
+}
+function CategoryViewModel() {
+	var self = this;
+	self.selectedCat = ko.observable();
+	self.childFields = ko.observableArray([]);
+	self.fetchSubCategories = function(){
+		self.childFields.push(new ChildField()); 
+		console.log("jhghjgj")
+		$.post(
+      	"/get-child-category/",
+     	{'csrfmiddlewaretoken' : "{{csrf_token}}",
+      	'parent': self.selectedCat()
+      }, 
+     function (data) {
+        if (data.success) {
+        	values = data.childs;
+        	self.childFields.push(new ChildField());        
+        }
+      });
+	}
+
+}
+ko.applyBindings(new CategoryViewModel());
+
+</script>
+
+{% endblock %}

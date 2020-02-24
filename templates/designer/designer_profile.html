@@ -1,0 +1,83 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+
+<title>Addiction Bazaar </title>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- /.carousel -->
+
+<!-- Slider Carousal -->
+
+
+<!--////////////////////////////////////Container-->
+
+<section class="des-p">
+	<div class="col-md-12">
+	<div id='designers-profile'></div>
+		
+	</div>
+</section>
+
+
+
+<script type='text/javascript'>
+	$(document).ready(function(){
+	        $("#openModal").modal('show');
+	    });
+
+	$(document).ready(function() {
+
+		$('.carousel[data-type="multi"] .item').each(function(){
+			var next = $(this).next();
+			if (!next.length) {
+				next = $(this).siblings(':first');
+			}
+			next.children(':first-child').clone().appendTo($(this));
+
+			for (var i=0;i<4;i++) {
+				next=next.next();
+				if (!next.length) {
+					next = $(this).siblings(':first');
+				}
+
+				next.children(':first-child').clone().appendTo($(this));
+			}
+		});
+		$('.carousel2[data-type="multi"] .item').each(function(){
+			var next = $(this).next();
+			if (!next.length) {
+				next = $(this).siblings(':first');
+			}
+			next.children(':first-child').clone().appendTo($(this));
+
+			for (var i=0;i<2;i++) {
+				next=next.next();
+				if (!next.length) {
+					next = $(this).siblings(':first');
+				}
+
+				next.children(':first-child').clone().appendTo($(this));
+			}
+		});
+
+	});
+
+</script>
+<script type="text/javascript">
+	// var user = '{{request.user}}';
+	// var csrf_token = "{{csrf_token}}";
+	// if(navigator.userAgent.match(/Android/i)
+ //          || navigator.userAgent.match(/iPhone/i)
+ //          || navigator.userAgent.match(/iPod/i)
+ //          || navigator.userAgent.match(/BlackBerry/i)
+ //          || navigator.userAgent.match(/Windows Phone/i)) {
+		  
+	// 	   location.href = "http://m.addictionbazaar.com";
+ //    }
+</script>
+{% endblock %}

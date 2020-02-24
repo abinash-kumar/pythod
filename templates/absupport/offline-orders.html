@@ -1,0 +1,63 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+
+<title>Offline Orders</title>
+
+<!-- 
+Make a html form :
+
+Fields :
+
+Order line time 
+Payment date 
+Payment amount
+Payment mode - driven from backend
+Payment status -- driven from backend
+Discount
+Taxes
+Shipping charge
+
+
+
+-->
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+    	<form action="/ab/offline-orders/details/" method="POST"> {% csrf_token %} <!-- offline-orders/details/ -->
+        Order Line Item: <input type="number" id="orerline" name="order_line_item"><br>  
+        Payment Date: <input type="date" name="payment_date"><br>  
+        Payment Amount: <input type="number" name="payment_amount"><br> 
+        Payment Mode :  <select name="payment_mode" >
+                        {% for obj in payment_mode %}
+                        <option value="{{ payment_mode }}">
+                            {{ obj }}
+                        </option>
+                        {% endfor %}
+                    </select><br>
+        Payment Status :<select name="payment_status" >
+                        {% for obj in payment_status %}
+                        <option value="{{ payment_status }}">
+                            {{ obj }}
+                        </option>
+                        {% endfor %}
+                        </select><br>
+        Discount: <input type="number" name="discount"><br>  
+        Taxes: <input type="number" name="taxes"><br> 
+        Shipping Charge: <input type="number" name="shipping_charge"><br>  
+                        <input type="submit" class="btn btn-success" value="SUBMIT" />
+
+
+
+
+        </form>
+        
+    </div>
+</div>
+
+{% endblock %}

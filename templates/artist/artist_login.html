@@ -1,0 +1,106 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+
+<link href="{% static 'product/css/animate.css' %}" rel="stylesheet">
+<link href="{% static 'product/css/custom.css' %}" rel="stylesheet">
+<script src="{% static 'js/knockout-3.4.0.js' %}"></script>
+<link rel="stylesheet" href="{% static 'product/css/multizoom.css' %}" type="text/css" />
+
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'product/js/multizoom.js' %}">
+
+// Featured Image Zoomer (w/ optional multizoom and adjustable power)- By Dynamic Drive DHTML code library (www.dynamicdrive.com)
+// Multi-Zoom code (c)2012 John Davenport Scheuer
+// as first seen in http://www.dynamicdrive.com/forums/
+// username: jscheuer1 - This Notice Must Remain for Legal Use
+// Visit Dynamic Drive at http://www.dynamicdrive.com/ for this script and 100s more
+
+</script>
+
+
+{% endblock %}
+
+{% block content %}
+
+	<section class="content-box"><!--Start Box-->
+		<div class="mui-container fix-len">
+			{% if new_user %}
+			<div class="center-block text-center">
+				<h2>New Addiction , More than the Old one</h2>
+				<h3>Warm Welcome !!</h3>
+			</div>
+			{% endif %}
+			<div class="mui-panel login-box center-block">
+				<div class="modal-header login_modal_header">
+                <h2 class="modal-title" id="myModalLabel">LogIn As an Artist</h2>
+                <center style="color:black;">and simply Manage your Arts and Designs...</center>
+				</div>
+				<div class="modal-body login-modal">
+					<p></p>
+					<br/>
+					<div class="clearfix"></div>
+					<div id='social-icons-conatainer'>
+					<div class='modal-body'>
+
+						<form method="POST" id="login-user" data-bind="submit: loginUser">{% csrf_token %}
+							<div class="form-group">
+					      		<input type="text" id="username" placeholder="Enter Email/Mobile" data-bind='value: username' class="form-control login-field">
+					      		<i class="fa fa-user login-field-icon"></i>
+					    	</div>
+
+					    	<div class="form-group">
+					    	  	<input type="password" id="login-pass" placeholder="Password" data-bind='value: password' class="form-control login-field">
+					      		<i class="fa fa-lock login-field-icon"></i>
+					    	</div>
+							<button href="#" type="submit" class="btn btn-success modal-login-btn">Login</button>
+					    	<span class="error" data-bind='visible: error, text:errorText'></span>
+					    </form>
+						<div id="forget-password"></div>
+					</div>
+				</div>
+				<a href="/artist/signup/" class="text-center">Create New Account</a>																												
+				<hr />
+			</div>
+		</div>
+	</section>
+
+<script type="text/javascript">
+  function LoginUserViewModel(){
+    var self= this;
+    self.username = ko.observable();
+    self.password = ko.observable();
+    self.error = ko.observable(false);
+    self.errorText = ko.observable("Fill out mandatory fields");
+    self.loginUser = function(){
+    	debugger;
+      if (self.username()!= "" && self.password()!=""){
+         $.post(
+          "/loginuser/",
+         {'csrfmiddlewaretoken' : "{{csrf_token}}", 
+          'username': self.username(),
+          'password': self.password(),
+      	  }, 
+         function (result) {
+            if (result.success) {
+               window.location=getValueOfParam('next') ? getValueOfParam('next') : '/';
+            } else {
+            	self.errorText("Username Password doesn't match")
+            	self.error(true);
+              console.log("some error occured");
+            }
+         });
+      }
+      else{
+      	self.errorText("Fill out mandatory fields")
+        self.error(true);
+      }
+    }
+  }
+ko.applyBindings(new LoginUserViewModel(),document.getElementById('login-user'));
+
+</script>
+
+{% endblock %}

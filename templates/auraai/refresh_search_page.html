@@ -1,0 +1,78 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+{% block headContent %}
+<title>Addiction Bazaar - Refresh Search</title>
+
+{% endblock %}
+{% block content %}
+<a href="/ab/dashboard/" style="font-size: 25px;">&lArr; Go to Dashboard</a>
+<div class="container-90">
+    <h1>Refresh Search</h1>
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" id="pBar" style="width:0%"></div>
+    </div>
+    <div id="indexStaus"></div>
+    <button id="refreshSearchButton">Click to Refresh Seaarch Index</button>
+    <br />
+</div>
+<script>
+    function CheckIndexStatus() {
+        let total = 0;
+        let indexed = 0;
+        //Api Call
+        $.ajax({
+            type: "POST",
+            url: "/aura/apis/refresh-search-status/",
+            data: {
+                'csrfmiddlewaretoken': csrf_token,
+            },
+            success: function (data) {
+                let t = parseInt(data.total)
+                if (!t) {
+                    t = 0;
+                }
+                let i = parseInt(data.indexed)
+                if (!i) {
+                    i = 0;
+                }
+                total = t;
+                indexed = i;
+            },
+            async: false
+        });
+        //end Api Call
+        console.log(total);
+        console.log(indexed);
+        let percentage = parseInt(indexed*100/total);
+        $('#indexStaus').html(indexed + '/' + total + ' indexed('+ percentage + '%)');
+        $('#pBar').css('width', percentage + '%');
+        if (total > indexed) {
+            setTimeout(CheckIndexStatus, 200);
+        }
+    }
+    $("#refreshSearchButton").click(function () {
+        //Api Call
+        $.ajax({
+            type: "POST",
+            url: "/aura/apis/refresh-search/",
+            data: {
+                'csrfmiddlewaretoken': csrf_token,
+            },
+            success: function (data) {
+                if(data.success)
+                {
+                    $('#indexStaus').html('indexing ... ');
+                }
+                else
+                {
+                    $('#indexStaus').html('Error');
+                }
+                
+            },
+            async: false
+        });
+        //end Api Call
+        CheckIndexStatus();
+    });
+</script>
+{% endblock %}

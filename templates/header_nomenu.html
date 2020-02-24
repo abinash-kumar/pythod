@@ -1,0 +1,49 @@
+{% load staticfiles %}
+<header >
+    <div class="wrap-header fullgrid" id="logobar" style="z-index:200;">
+	    <div id="fixed-header">
+    		<a class="top-std float-left">Addiction Bazaar - Save More Shop More</a>
+    		<a class="top-std" href="http://seller.addictionbazaar.com" target="_blank">Sell with us</a>
+    		<a href="/blog" class="top-std">Blog</a>
+    	</div>
+      <div class="row1 fl">
+        <a href='/' class="logo"><img src="{% static 'myhome/images/logo1.png' %}" /></a>
+      </div>
+      <div class="row1 fl">
+        <div class="left-all-fixed search-div">
+          <form method="POST" action="/search-result/">{% csrf_token %}
+          <input class="search-box" type="text" name="search" placeholder="Search.." style="float:left;" required>
+          <button type="submit" class="submit-search"></button>
+          </form>
+          </div>
+          <div class="login float-right">
+    	    {% if user and not user.is_anonymous %}
+            <div class="dropdown home-top">
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Hi! {{user.first_name}}
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu animated bounceIn" aria-labelledby="dropdownMenu1">
+                <li><a href="{% url 'profile' %}">My Profile</a></li>
+                <li><a href="/user/pickedbyme/">Picked by me</a></li>
+                <li><a href="/user/orders/">My Orders</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/logout/" onclick="removeTokenValue()">Not {{user.first_name}}? Logout</a></li>
+              </ul>
+            </div>
+    	    {% else %}
+    	    <a class="log" data-toggle="modal" data-target="#myModal">LOGIN</a>
+    	    {% endif %}
+  	     </div>  
+
+        <div class="left-all-fixed cart-div">
+          <a href="/my-cart/" style="float:left;">
+            <div class="cart float-right">
+              <p data-bind= "text: cartValue"></p>
+            </div>
+          </a>
+        </div>
+        
+      </div>
+    </div>
+</header>

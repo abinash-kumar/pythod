@@ -1,0 +1,91 @@
+.home-item-grocery {
+  border: 1px solid green;
+  height: 180px;
+  width: 50%;
+}
+
+.home-item-grocery-product {
+	border: 1px solid green;
+  	height: 250px;
+  	width: 50%;
+}
+
+.with-padding {
+	padding-bottom: 10px;
+}
+
+.marketing {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.item-title {
+	position: absolute;
+	font-size: 20px;
+	width: 100%;
+	bottom: 0px;
+	color: #fff;
+}
+.bg-op-black {
+	padding:5px 10px 5px 10px;
+	background:rgba(0, 0, 0, 0.5);
+	margin-bottom: 0px;
+}
+.grocery-banner {
+	height: 200px;
+}
+
+.text {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	text-align: center;
+	padding:3px;
+}
+p.buttons a {
+	float: left;
+	width: 50%;
+}
+
+.image a img {
+	display: block;
+	margin: 0 auto;
+	width: 100%;
+}
+.updateqnty {
+	width: 35px;
+	display: inline-block;	
+	padding: 0px 0px 0px 10px
+}
+.cart-ul {
+	list-style: none;
+	margin:0 0 0 30px;
+}
+
+.cart-ul li {
+	margin-bottom: 10px;
+	margin-top: 10px;
+	display: block;
+	margin: 10px auto;
+	margin-left: -55px;
+}
+.wrap-text {
+	width: 30px;
+	white-space: nowrap;
+}
+
+.update-lnk {
+	margin: 5px 0 0 20px;
+	position: absolute;
+}
+
+.img-circle {
+	margin:0 auto;
+	display: block;
+	border-radius: 0px;
+}
+.grocery-name {
+	font-size:13px;
+	margin-bottom: 0px;
+}

@@ -1,0 +1,53 @@
+User-agent: Mediapartners-Google
+Disallow:
+
+User-agent: Adsbot-Google
+Disallow:
+
+User-agent: Googlebot-Image
+Disallow:
+
+# cart
+User-agent: *
+Disallow: /my-cart
+
+# Permanent Link For Individual Review
+User-agent: *
+Disallow: /reviews/
+
+# Affiliate Widget
+User-agent: *
+Disallow: /affiliateWidget/
+
+#Search Pages
+User-agent: *
+Disallow: /search?
+
+# Temporary Hack
+User-agent: *
+Disallow: /ph/search/
+
+#Alliances Pages
+User-agent: *
+Disallow: /alliances/
+
+# Faceted pages
+User-agent: *
+Disallow: /*=facets*
+
+# URL parameters blocking for SEO
+User-agent: *
+Disallow: /*?affid=
+Disallow: /*&affid=
+Disallow: /*?q=
+Disallow: /*&q=
+Disallow: /*?p%5B0%5D=
+Disallow: /*&p%5B0%5D=
+Disallow: /*?icmpid=
+Disallow: /*&icmpid=
+
+# Faceted pages
+User-agent: *
+Disallow: /*=facets*
+
+Sitemap: https://www.addictionbazaar.com/sitemap.xml

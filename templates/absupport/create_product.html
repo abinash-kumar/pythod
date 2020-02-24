@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+
+<title>Create Product</title>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        {% for des in design_list %}
+            <div class="col-sm-3 bod">
+                STATUS-{{des.status}}, ID- {{des.id}}
+                <img src={{des.img}} alt="" width="100%">
+                {% for key, value in des.category.items %}
+                    <a target="_blank" class='disable_{{value|lower}}' href="/ab/product/make/{{key}}/{{des.id}}/">{{key}}</a>
+                    <br/>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style type="text/css">
+    .disable_true {
+        color: #82c45d;
+    }
+    .disable_false {
+        color: #ff1717;
+    }
+    body {
+        background: bisque;
+    }
+</style>
+{% endblock %}

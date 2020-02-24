@@ -1,0 +1,75 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+<link rel="stylesheet" href="{% static 'css/swiper.css' %}">
+
+
+<!-- COMMON TAGS -->
+<meta charset="utf-8">
+<title>Addiction Bazaar : Creative Artist - SignUp with Us</title>
+<!-- Search Engine -->
+<meta name="description" content="Addiction Bazaar is made for Creative people, having a vision to flourish Indian Arts and Artist, making them to board online and help them to give business globally. SignUp and start business with us.">
+<meta name="image" content="https://addictionbazaar.com/uploads/artist_signup.jpg">
+<!-- Schema.org for Google -->
+<meta itemprop="name" content="Addiction Bazaar : Creative Artist - SignUp with Us">
+<meta itemprop="description" content="Addiction Bazaar is made for Creative people, having a vision to flourish Indian Arts and Artist, making them to board online and help them to give business globally. SignUp and start business with us.">
+<meta itemprop="image" content="https://addictionbazaar.com/uploads/artist_signup.jpg">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Addiction Bazaar : Creative Artist - SignUp with Us">
+<meta name="twitter:description" content="Addiction Bazaar is made for Creative people, having a vision to flourish Indian Arts and Artist, making them to board online and help them to give business globally. SignUp and start business with us.">
+<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+<meta name="og:title" content="Addiction Bazaar : Creative Artist - SignUp with Us">
+<meta name="og:description" content="Addiction Bazaar is made for Creative people, having a vision to flourish Indian Arts and Artist, making them to board online and help them to give business globally. SignUp and start business with us.">
+<meta name="og:image" content="https://addictionbazaar.com/uploads/artist_signup.jpg">
+<meta name="og:url" content="https://addictionbazaar.com/artist/signup/">
+<meta name="og:site_name" content="Addiction Bazaar">
+<meta name="og:locale" content="en_IN">
+<meta name="fb:admins" content="1537349483249865">
+<meta name="fb:app_id" content="1787057741532094">
+<meta name="og:type" content="website">
+{% endblock %}
+
+{% block content %}
+
+<div id="art-signup">
+	
+</div>
+
+<script type="text/javascript">
+var artist_type = 'INDEPENDENT';
+
+$('#des-signup').ready(function(){
+var $animation_elements = $('.animated');
+var $window = $(window);
+
+function check_if_in_view() {
+  var window_height = $window.height();
+  var window_top_position = $window.scrollTop();
+  var window_bottom_position = (window_top_position + window_height);
+ 
+  $.each($animation_elements, function() {
+    var $element = $(this);
+    var element_height = $element.outerHeight();
+    var element_top_position = $element.offset().top;
+    var element_bottom_position = (element_top_position + element_height);
+ 	
+    //check to see if this current container is within viewport
+    if ((element_bottom_position >= window_top_position) &&
+        (element_top_position <= window_bottom_position)) {
+      $element.addClass('zoomIn');
+    } else {
+      $element.removeClass('zoomIn');
+    }
+  });
+}
+
+$window.on('scroll resize', check_if_in_view);
+$window.trigger('scroll');
+
+});
+
+
+</script>
+{% endblock %}

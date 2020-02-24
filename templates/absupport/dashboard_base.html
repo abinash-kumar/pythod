@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Addiction Bazaar </title>
+    <link rel="shortcut icon" href="{% static 'myhome/images/favicon.ico' %}">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="{% static 'myhome/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'myhome/css/zerogrid.css' %}">
+    <link rel="stylesheet" href="{% static 'myhome/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'myhome/css/responsiveslides.css' %}">
+    <!-- Custom Fonts -->
+    <link href="{% static 'myhome/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <script src="{% static 'myhome/js/jquery-latest.min.js' %}"></script>
+    <script src="{% static 'myhome/js/script.js' %}"></script>
+    <script src="{% static 'js/knockout-3.4.0.js' %}"></script>
+    <script src="{% static 'myhome/js/responsiveslides.min.js' %}"></script>
+    <script src="{% static 'myhome/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'myhome/js/jquery-scrolltofixed-min.js' %}"></script>
+    <link href="{% static 'product/css/animate.css' %}" rel="stylesheet">
+	<link href="{% static 'product/css/style.default.css' %}" rel="stylesheet" id="theme-stylesheet">
+	<link href="{% static 'product/css/custom.css' %}" rel="stylesheet">	
+	<!--[if lt IE 8]>
+       <div style=' clear: both; text-align:center; position: relative;'>
+         <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+           <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an dated browser. For a faster, safer browsing experience, upgrade for free today." />
+        </a>
+      </div>
+      <![endif]-->
+    <!--[if lt IE 9]>
+		<script src="js/html5.js"></script>
+		<script src="js/css3-mediaqueries.js"></script>
+		<![endif]-->
+	{% block headContent %}
+
+	{% endblock %}
+
+	</head>
+
+<body>
+	<div class="wrap-body" id="main">
+
+		<!--////////////////////////////////////Header-->
+		
+
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+		    	<div class="modal-content">
+		      		<div class="modal-header login_modal_header">
+		        		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        		<h2 class="modal-title" id="myModalLabel">Login to Your Account</h2>
+		      		</div>
+		      		<div class="modal-body login-modal">
+		      			<p></p>
+		      			<br/>
+		      			<div class="clearfix"></div>
+		      			<div>
+			        		<div class='modal-body-left'>
+								<form method="POST" id="login-user-header" data-bind="submit: loginUser">{% csrf_token %}
+									<div class="form-group">
+							      		<input type="text" id="username" placeholder="Enter Email/Mobile" data-bind='value: username' class="form-control login-field">
+							      		<i class="fa fa-user login-field-icon"></i>
+							    	</div>
+
+							    	<div class="form-group">
+							    	  	<input type="password" id="login-pass" placeholder="Password" data-bind='value: password' class="form-control login-field">
+							      		<i class="fa fa-lock login-field-icon"></i>
+							    	</div>
+							    	<button href="#" type="submit" class="btn btn-success modal-login-btn">Login</button>
+							    	<span class="error" data-bind='visible: error, text:errorText'></span>
+							    </form>
+				            	<a href="#" class="login-link text-center">Lost your password?</a>
+			        		</div>
+
+			        		<div class='modal-body-right'>
+			        			<div class="modal-social-icons">
+			        				<a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" class="btn btn-default facebook"> <i class="fa fa-facebook modal-icons"></i> Sign In with Facebook </a>
+			        				<a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}" class="btn btn-default google"> <i class="fa fa-google-plus modal-icons"></i> Sign In with Google </a>
+			        			</div> 
+			        		</div>	
+			        		<div id='center-line'> OR </div>
+			        	</div>																												
+		        		<div class="clearfix"></div>
+
+		        		<div class="form-group modal-register-btn">
+		        			
+		        		</div>
+		      		</div>
+		      		<div class="clearfix"></div>
+		      		<div class="modal-footer login_modal_footer">
+		      		</div>
+		    	</div>
+		  	</div>
+		</div>
+		<div id="block-main">
+
+		{% include "header.html" %}
+		
+		{% block content %}
+
+		{% endblock %}
+
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,145 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+<title> Addiction Bazaar</title>
+{% endblock %}
+
+{% block content %}
+<table >
+    <tr>
+        <td>Set For All-></td>
+        <td>Quantity<input type="text" id="allQty"/></td>
+        <td>Price<input type="text" id="allPrice" /></td>
+        <td>
+            All Sellers
+            <div id="all_sellers">
+            {% for seller in sellers %}
+                <input type="checkbox" value="{{seller.id}}" id="allseller_{{seller.id}}"
+                >{{seller.seller.first_name}} &nbsp;
+            {% endfor %}
+            </div>
+           </td>
+    </tr>
+    
+<form method="POST" onsubmit="return validateForm()" action="/ab/product/submit-varient-generic/">{% csrf_token %}
+<input type="hidden" name="product_id" value = "{{all_varients.0.product.id}}" />
+
+    <tr>
+    {% for vars in all_varients.0.key.all|dictsort:"varient_type" %}
+        <th>
+            {{ vars.varient_type}}&nbsp;
+        </th>
+    {% endfor %}
+    <th>Quantity&nbsp;</th>
+    <th>Price&nbsp;</th>
+    <th>Sellers&nbsp;</th>
+    </tr>
+    {% for varients  in all_varients %}
+    <tr >
+    {% for vars in varients.key.all|dictsort:"varient_type" %}
+    <td>
+    {{ vars.value }}&nbsp;
+    </td>
+    {% endfor %}
+    <td><input type="text" class="qty" name="quantity_{{varients.id}}" value="{{varients.quantity}}" />&nbsp;</td>
+    <td><input type="text" class="price" name="price_{{varients.id}}" value="{{varients.quantity}}" />&nbsp;</td>
+    <td>
+        <div id="seller_cb_div_{{varients.id}}">
+        {% for seller in sellers %}
+            <input type="checkbox" value="{{seller.id}}" class="sellers_{{seller.id}}" name="sellers_{{varients.id}}"  
+            {% for vars in varients.sellers.all %}
+            {% if seller.id == vars.id %}
+            checked="checked"
+            {% endif %}
+            {% endfor %}
+            >{{seller.seller.first_name}} &nbsp;
+        {% endfor %}
+        </div>
+       </td>
+    </tr>
+    {% endfor %}
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><input type="submit" id="submitBtn" value="submit"/></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+</form>
+</table>
+<script>
+$("#allQty").keyup(function(){
+    var qty = $("#allQty").val();
+    $(".qty").val(qty);
+});
+$("#allPrice").keyup(function(){
+    var qty = $("#allPrice").val();
+    $(".price").val(qty);
+});
+
+{% for seller in sellers %}
+    $("#allseller_{{seller.id}}").change(function(){
+        debugger
+       if($("#allseller_{{seller.id}}").prop('checked')){
+            $(".sellers_{{seller.id}}").each(function() {
+                $(this).prop('checked', true)});
+       }
+       else{
+            $(".sellers_{{seller.id}}").each(function() {
+                $(this).prop('checked', false)});
+       }
+    });
+{% endfor %}
+
+function validateForm() {
+    {% for varients in all_varients %}
+    var v = {{varients.id}}
+    var selected = [];
+    $('#seller_cb_div_'+String(v)+' input:checked').each(function() {
+        selected.push($(this).val());
+    });
+    if( selected.length == 0 )
+    {
+        alert('Select at least 1 Seller for each Varient.');
+        return false;
+    }
+
+    {% endfor %}
+    return true;
+}
+
+</script>
+<style>
+
+    table {
+        border: 1px solid black;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
+    td, th {
+        border: 1px solid black;
+        text-align: center;
+        padding: 1px;
+    }
+    
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+    #submitBtn{
+        background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    }
+    </style>
+{% endblock %}

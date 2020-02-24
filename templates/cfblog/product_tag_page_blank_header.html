@@ -1,0 +1,45 @@
+{% extends 'base_new.html' %}
+{% load staticfiles %}
+{% block head %}
+<title name="og:title" data-cms-content="title">Addiction Bazaar</title>
+<meta data-cms-attr="content:description" name="description" content="Addiction Bazaar" />
+<meta data-cms-attr="content:og_description" name="og:description" content="Addiction Bazaar">
+<meta name="image" itemprop="image" data-cms-attr="content:full_meta_img_url" content="">
+<meta data-cms-attr="content:og_url" name="og:url" content="https://www.addictionbazaar.com/">
+<meta name="og:site_name" content="Addiction Bazaar">
+<meta name="fb:app_id" content="1787057741532094">
+<meta name="og:type" content="website">
+{% endblock %}
+{% block content %}
+
+<div class="container-full">
+  <div class="row">
+    <div class="col-sm-12 col-xs-12">
+      <div style="overflow:hidden" class="col-md-4 col-sm-12 col-xs-12 fr">
+        <img alt="" data-cms-attr="src:banner_image_link|alt:banner_image_alt" width="100%">
+      </div>
+      <div class="col-md-8 col-sm-12 col-xs-12">
+        <div data-cms-content="md:header_content_mark_down"></div>
+      </div>
+    </div>
+  </div>
+  <div id="cfblog-prodcut-page" data-cms-attr="tags:tag_banners"></div>
+
+
+  <div class="panel-group container-full">
+    <div class="panel panel-default">
+      <div class="panel-heading" style="background:inherit;">
+        <h4 class="panel-title">
+          <a data-cms-content="accordion_title" data-toggle="collapse" href="#collapse1">Accordian Title</a>
+        </h4>
+      </div>
+      <div id="collapse1" class="panel-collapse collapse">
+        <ul class="list-group ">
+          <div data-cms-content="md:accordion_body" class="pad-10 container-full"></div>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

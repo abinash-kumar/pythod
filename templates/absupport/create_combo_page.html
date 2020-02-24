@@ -1,0 +1,123 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+{% block headContent %}
+<title>Addiction Bazaar - Create Combo Products</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+.scrollDiv{
+    overflow-y: scroll;
+    height: -webkit-fill-available;
+}
+
+.inputTextStyle {
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.inputStyle {
+  width: 80%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+.inputStyleBtn {
+  font-size: 16px;
+  height: 48px;
+  width: 100px;
+  border: 2px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myUL {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#myUL li a {
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block
+}
+
+#myUL li a:hover:not(.header) {
+  background-color: #eee;
+}
+</style>
+{% endblock %}
+{% block content %}
+<form method="POST" action="/ab/create-combo-product/">{% csrf_token %}
+<div class="scrollDiv col-sm-8 col-md-8 col-xs-8" >
+<h2>Products</h2>
+<input type="text" class="inputStyle" id="myInput" onkeyup="myFunction()" placeholder="Search for Products.." title="Type in a name">
+<ul id="myUL">
+{% for product in products%}
+  <li>
+  <a href="#" class="product-detail" product-id="{{ product.id }}"  product-image-link="{{product.image}}">
+  <input type="checkbox" name="selectedProducts" class="productCheckbox" value="{{ product.id }}" product-name= "{{ product.name }}" />
+  {{ product.name }}</a>
+  </li>
+{% endfor %}
+</ul>
+</div>
+<div class="col-sm-4 col-md-4 col-xs-4 scrollDiv">
+<img id="productImage" height='200px' src="" alt="No Image"/>
+<hr />
+<div id="selectedProducts"></div>
+<hr />
+Name-<input type="text" class="inputTextStyle" placeholder="Enter Combo Name" name="comboName" />
+<br />
+Description-<input type="text" class="inputTextStyle" placeholder="Enter Combo Description" name="comboDescription" />
+<br />
+Qauntity-<input type="number" class="inputTextStyle" value="10" placeholder="Enter Combo Quantity" name="comboQuantity" />
+<br />
+<input type="submit" class="inputStyleBtn" value="Create" />
+</div>
+</form>
+<br />
+<script>
+function myFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+
+        }
+    }
+}
+$(".product-detail").click(function () {
+        
+        let pImgLink = this.getAttribute('product-image-link');
+        document.getElementById('productImage').src = pImgLink;
+        checkedBox = getCheckedCheckboxValue();
+        $('#selectedProducts').html(checkedBox.toString());
+    });
+function getCheckedCheckboxValue(){
+    var selected = [];
+    $('.productCheckbox').each(function() {
+        if(this.checked){
+            selected.push($(this).attr('product-name'));
+        }
+    });
+    return selected;
+}
+</script>
+{% endblock %}

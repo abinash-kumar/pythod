@@ -1,0 +1,56 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+
+
+{% block headContent %}
+<title>Your Cart - Addiction Bazaar</title>
+{% endblock %}
+
+
+
+
+{% block content %}
+
+<!--////////////////////////////////////Container-->
+
+<section class="content-box"><!--Start Box-->
+<div class="mui-container" style="margin-top:20px;">
+<div class="mui-panel">
+<div class="btn-group btn-group-justified" role="group" aria-label="...">
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default">Profile</button>
+  </div>
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default" onclick="location.href='/all-product/';">Your Products</button>
+  </div>
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default" onclick="location.href='/add-product/';">Add Product</button>
+  </div>
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default">Add Listing</button>
+  </div>
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default">Orders</button>
+  </div>
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default">Returns</button>
+  </div>
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default">Activity History</button>
+  </div>
+</div>
+
+</div>
+</div>
+</section>
+<script type="text/javascript">
+</script>
+
+<script src="{% static 'js/bootstrap-select.js' %}"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+<script src="https://rawgit.com/adrotec/knockout-file-bindings/master/knockout-file-bindings.js"></script>
+
+{% block subcontent %}
+{% endblock %}
+
+{% endblock %}

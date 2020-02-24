@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block headContent %}
+<title>All Orders - Addiction Bazaar </title>
+{% endblock %}
+{% block content %}
+<div class="container-90">
+    <div class="row">
+        <table class="table">
+            <tr>
+                <td>
+                    <lable>Filter by status :- </lable>
+                    <select name="status" form="date_form">
+                        {% for option in options %}
+                        <option value="{{ option }}">
+                            {{ option }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <form action="" method="GET" id="date_form">
+                    <td>
+                        From Date
+                        <input class="form-control" type="date" id="from_date" name="from_date" />
+                    </td>
+                    <td>
+                        - To Date
+                        <input class="form-control" type="date" id="to_date" name="to_date" />
+                        <input type="submit" class="btn btn-success" id="submit_date" />
+                </form>
+                </td>
+            </tr>
+        </table>
+        {% if orders_details %}
+        <table border="1" class="table">
+            <tr>
+                <th> ID </th>
+                <th> Product Name </th>
+                <th> User Name </th>
+                <th> Artist </th>
+                <th> Quantity </th>
+                <th> Varients </th>
+                <th> Price </th>
+                <th> Dated Ordered </th>
+                <th> Dated Shipped </th>
+                <th> Dated delivered </th>
+                <th> Status </th>
+                <th> Link </th>
+            </tr>
+
+            {% for order in orders_details %}
+            <tr>
+                <td>
+                    <a href="/ab/orders/{{ order.order_obj.id }}/">{{ order.order_obj.id }}</a>
+                </td>
+                <td>
+                    <a href="/product/{{ order.order_obj.product_id.slug }}/{{ order.order_obj.product_id.id }}" target="_blank">{{ order.order_obj.product_id }}</a>
+                </td>
+                <td>{{order.order_obj.user.first_name}} {{order.order_obj.user.last_name}}</td>
+                <td>{{ x }}</td>
+                <td>{{ order.order_obj.quantity }}</td>
+                <td>{{ x }}</td>
+                <td>{{ order.order_obj.price }}</td>
+                <td>{{ order.order_obj.order_placed_time }}</td>
+                <td>{{ x }}</td>
+                <td>{{ x }}</td>
+                <td>{{ order.order_obj.order_status }}</td>
+                <th><a href="/ab/orders/{{ order.order_obj.id }}/" target="_blank"> Link </a> </th>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

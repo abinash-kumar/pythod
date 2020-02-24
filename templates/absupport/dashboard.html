@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+
+<link href="{% static 'product/css/animate.css' %}" rel="stylesheet">
+<link href="{% static 'product/css/style.default.css' %}" rel="stylesheet" id="theme-stylesheet">
+<link href="{% static 'product/css/custom.css' %}" rel="stylesheet">
+<script src="{% static 'js/knockout-3.4.0.js' %}"></script>
+<link rel="stylesheet" href="{% static 'product/css/multizoom.css' %}" type="text/css" />
+
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'product/js/multizoom.js' %}">
+// Featured Image Zoomer (w/ optional multizoom and adjustable power)- By Dynamic Drive DHTML code library (www.dynamicdrive.com)
+// Multi-Zoom code (c)2012 John Davenport Scheuer
+// as first seen in http://www.dynamicdrive.com/forums/
+// username: jscheuer1 - This Notice Must Remain for Legal Use
+// Visit Dynamic Drive at http://www.dynamicdrive.com/ for this script and 100s more
+</script>
+<title>Dashboard</title>
+
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container-fluid">
+      <div class="row">
+        <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="/ab/artists/">Artist Dashboard<span class="sr-only">(current)</span></a>
+              <a class="nav-link active" href="/aura/refresh-search-page/">Refresh Search<span class="sr-only">(current)</span></a>
+              <a class="nav-link active" href="/ab/refresh-offer/">Refresh Offers<span class="sr-only">(current)</span></a>
+              <a class="nav-link active" href="/ab/refresh-products-page/">Refresh Products<span class="sr-only">(current)</span></a>
+              <a class="nav-link active" href="/aura/tag/products/">Product Tag List<span class="sr-only">(current)</span></a>
+              <a class="nav-link active" href="/ab/product/invalid/">Invalid Products<span class="sr-only">(current)</span></a>
+              <a class="nav-link active" href="/ab/login-as/">Login As other User<span class="sr-only">(current)</span></a>
+              <a class="nav-link active" href="/ab/orders/">All-Orders<span class="sr-only">(current)</span></a>
+              <a class="nav-link active" href="/ab/orders-tranction/">All-Transactions<span class="sr-only">(current)</span></a>
+              <a class="nav-link active" href="/ab/product-image-map/">Product-Image-Mapping<span class="sr-only">(current)</span></a>
+              <a class="nav-link active" href="/ab/create-combo-page/">Create Combo Product<span class="sr-only">(current)</span></a>
+              <a class="nav-link active" href="/ab/Campaigns-and-Coupons/">Campaigns & Coupons<span class="sr-only">(current)</span></a>
+             </li>
+           </ul>
+         </nav>
+
+            </li>
+          </ul>
+        </nav>
+
+        <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+          <h1>Dashboard</h1>
+
+          <section class="row text-center placeholders">
+            <div class="col-6 col-sm-3 placeholder">
+              <h4>Users</h4>
+              <div class="text-muted">{{user_count}}</div>
+            </div>
+            <div class="col-6 col-sm-3 placeholder">
+              <h4>Sellers</h4>
+              <span class="text-muted">{{seller_count}}</span>
+            </div>
+            <div class="col-6 col-sm-3 placeholder">
+              <h4>Label</h4>
+              <span class="text-muted">Something else</span>
+            </div>
+            <div class="col-6 col-sm-3 placeholder">
+              <h4>Label</h4>
+              <span class="text-muted">Something else</span>
+            </div>
+          </section>
+
+          <h2>Section title</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1,001</td>
+                  <td>Lorem</td>
+                  <td>ipsum</td>
+                  <td>dolor</td>
+                  <td>sit</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </div>
+    </div>
+    
+<div id="content">
+    <div class="container">
+    <h4>Important Tools</h4>
+        <div class="row">
+        <div class="col-md-4">
+            <a href="ab/send-email/">Send Email</a>
+        </div>
+        <div class="col-md-4">
+            <form method="POST" action="/ab/refresh-artist-design/">{% csrf_token %}
+              <input type="text" name="designId" placeholder="Enter Design Id" />
+              <input type="submit" value="Refresh Design" />
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

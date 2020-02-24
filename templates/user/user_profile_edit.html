@@ -1,0 +1,85 @@
+{% extends "base_nomenu.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+
+<title>Profile - Addiction Bazaar </title>
+
+<link href="{% static 'product/css/animate.css' %}" rel="stylesheet">
+<link href="{% static 'product/css/custom.css' %}" rel="stylesheet">
+<script src="{% static 'js/knockout-3.4.0.js' %}"></script>
+<link rel="stylesheet" href="{% static 'product/css/multizoom.css' %}" type="text/css" />
+
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'product/js/multizoom.js' %}">
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+<div id="content" class="top-five">
+    <div class="container card-3" id="user-profile">
+        <div class="col-md-6">
+            <div class="user-image">
+                <img data-bind="attr:{src: profilePhoto}">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default basic-detail">
+            <!-- Default panel contents -->
+                <div class="panel-heading">Profile
+                <a href="/user/profile/edit" class="btn btn-primary btn-sm text-right">
+                  Edit
+                </a>
+                </div>
+                <div class="panel-body">
+                <p>Share your code "{{customer.unique_share_code}}" and earn points</p>
+                </div>
+                <ul class="profile-details">
+                    <li class="">
+                    {{customer.customer.first_name}} {{customer.customer.last_name}}
+                    </li>
+                    {% if customer.gender %}
+                    <li class="">I am {{customer.gender}}</li>
+                    {% endif %}
+                    <li class="">{{customer.mobile}}
+                        {% if not customer.is_mobile_verified %}
+                        <span class="red">!</span>
+                        <a class="btn btn-default btn-xs">Verify</a>
+                        {% endif %}
+                    </li>
+                    <li class="">{{customer.customer.email}}
+                        {% if not customer.is_email_verified %}
+                        <span class="red">!</span>
+                        <a class="btn btn-default btn-xs">Verify</a>
+                        {% endif %}
+                    </li>
+                    {% if customer.dob %}
+                    <li class="">{{customer.dob}}
+                    </li>
+                    {% else %}
+                    <li class="">
+                        My Date of Birth : 
+                        <input type='text' class="thin-b" id='datetimepicker4' />
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+            <!-- /.container -->
+</div>
+<script type="text/javascript">
+    var profilePhoto = "{{customer.user_photo.url}}";
+    $(function () {
+        $('#datetimepicker4').datepicker({
+             changeMonth: true,
+             changeYear: true,
+             autoHide: true
+        });
+    });
+</script>
+
+{% endblock %}

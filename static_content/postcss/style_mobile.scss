@@ -1,0 +1,13 @@
+$font-stack: 'Montserrat', sans-serif;
+$shade: #fff;
+$abColor: #2eb3a8;
+
+@media only screen and (max-device-width: 480px){
+	.breadcrumb {
+		padding: 22px 5px 3px 8px;
+		background: #fff;
+		a{
+	  	  font-family: $font-stack;
+	  	}
+	}
+}

@@ -1,0 +1,48 @@
+{% extends "base_new.html" %}
+{% load staticfiles %} 
+{% block headContent %}
+
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<meta name="image" content="https://www.addictionbazaar.com/uploads/product_photo/447/1244/2017-11-30123137819411.jpg">
+<!-- Schema.org for Google -->
+<meta itemprop="name" content="{{category}} @ Addiction Bazaar">
+<meta itemprop="description" content="{{description}}">
+<meta itemprop="image" content="https://www.addictionbazaar.com/uploads/product_photo/447/1244/2017-11-30123137819411.jpg">
+<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+<meta name="og:title" content="Addiction Bazaar">
+<meta name="og:description" content="{{description}}">
+<meta name="og:image" content="https://www.addictionbazaar.com/uploads/product_photo/447/1244/2017-11-30123137819411.jpg">
+<meta name="og:url" content="https://www.addictionbazaar.com/">
+<meta name="og:site_name" content="{{category}} @ Addiction Bazaar">
+<meta name="fb:app_id" content="1787057741532094">
+<meta name="og:type" content="website">
+{% endblock %} 
+{% block content %}
+<div 
+    id="product-page"
+    data-varient="{{varients}}"
+    data-category='{{category}}'
+    data-maincategory ='{{mainCategory}}'
+    >
+</div>
+
+
+<div class="container-full">
+    <div class="row">
+        <div class="wrapper-ac">
+          
+          <div class="half">
+            <div class="tab">
+              <input id="tab-one" type="checkbox" name="tabs">
+              <label for="tab-one">{{content_title}}</label>
+              <div class="tab-content">
+                {{content}}
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

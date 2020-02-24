@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% load staticfiles %} {% block headContent %}
+
+<title>Product Image Map </title>
+
+{% endblock %} {% block content %}
+<center>
+    <h1>
+        <u>Product Image Color Select</u>
+    </h1>
+    <form method="POST">{% csrf_token %} {% for product_image in product_images %}
+        <div class="col-sm-3 col-md-3" style="border: solid black 2px;">
+            <h2>{{product_image.product.name}}</h2>
+            <input type="checkbox" name="cover_image" value="{{product_image.id}}" />
+            <b>Make This Cover Image</b>
+            <img src="{{product_image.image_img}}" />
+            <br /> {% for cv in category_varient %}
+
+            <input type="checkbox" name="{{product_image.id}}" value="{{cv.id}}" /> {{cv.value}} &nbsp;&nbsp; {% endfor %}
+
+        </div> {% endfor %}
+        <input type="submit" value="UPDATE" name="submit" />
+    </form>
+</center>
+{% endblock %}

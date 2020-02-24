@@ -1,0 +1,90 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+
+<title>Expenses - Addiction Bazaar </title>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <h1>All Expences</h1>
+        <form action="" method="GET">
+        From Date <input type="date" id="from_date" name="from_date" />
+        To Date <input type="date" id="to_date" name="to_date" />
+        <input type="submit" id="submit_date"/>
+        </form>
+        <hr >
+        <h5>
+        {% if from_date %}
+        From : {{from_date}}
+        {% endif %}
+        {% if to_date %}
+        To : {{to_date}}
+        {% endif %}
+        </h5>
+        {% if expence_sum %}
+        Total Expence :{{ expence_sum.amount__sum }}
+        {% endif %}
+        </br>
+        Expences by Users:
+        </br>
+        {% if expence_data_by_user %}
+        {% for user_amount in expence_data_by_user %}
+        {{ user_amount.user }}: {{ user_amount.amount.amount__sum }} </br>
+        {% endfor %}
+        {% endif %}
+        </br>
+        Expences by Channels:
+        </br>
+        {% if expence_data_by_category %}
+        {% for channel_amount in expence_data_by_category %}
+        {{ channel_amount.channel }}: {{ channel_amount.amount.amount__sum }} </br>
+        {% endfor %}
+        {% endif %}
+        <hr>
+        All Users Expences
+        {% if expence_data %}
+            <table>
+            {% for data in expence_data %}
+            <tr>
+                <td>{{ data.expence.remark }}</td>
+                <td>{{ data.expence.expense_date }}</td>
+                <td>{{ data.expence.expense_by }}</td>
+                <td>{{ data.expence.amount }}</td>
+        
+                <td>
+                  {% for bill in data.bills %}
+                     <a href="{{bill.file.url}}">{{bill.title}}</a> 
+                  {% endfor %}
+                </td>
+        
+            </tr>
+            {% endfor %}
+            </table>
+        {% else %}
+            <p>No Expences are available.</p>
+        {% endif %}
+        
+        
+        
+        <h1>All Documents</h1>
+        {% if bill_list %}
+            <ul>
+            {% for data in bill_list %}
+                <li>{{ data.title }}</li>
+                <p><a href="{{data.file.url}}">link</a></p>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No Expences are available.</p>
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock %}
+

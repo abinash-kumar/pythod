@@ -1,0 +1,112 @@
+{% extends "grocerybase.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+
+<link href="{% static 'product/css/animate.css' %}" rel="stylesheet">
+<link href="{% static 'product/css/style.default.css' %}" rel="stylesheet" id="theme-stylesheet">
+<link href="{% static 'product/css/custom.css' %}" rel="stylesheet">
+<script src="{% static 'js/knockout-3.4.0.js' %}"></script>
+<link rel="stylesheet" href="{% static 'product/css/multizoom.css' %}" type="text/css" />
+
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+
+
+{% endblock %}
+
+{% block content %}
+
+<div id="content">
+	<div class="container">
+		<div class="row1">
+                    <div class="col-md-12">
+						<div class="row1" id="productMain">
+                    		<div class="col-sm-6" style="padding:20px;">
+                    			<div id="mainImage" class="thumb">
+                    				<img id="image1" border="0" 
+                                    data-bind="attr : {src : mainImage}"  
+                    				class="img-responsive img-circle" />
+                    			</div>
+
+                    			
+                    			<!-- /.ribbon -->
+                                
+                                
+                    		</div>
+                    		<div class="col-sm-6">
+                    			<div class="box">
+
+                    				<form>
+                    					<div class="sizes">
+                    						<h2>{{product_name}}</h2>
+                    						{% if varient_name != None %}
+                    						<h3>Available {{varient_name}}</h3>
+                    						{% for value in varient_values %}
+                    						<label for="size_s">
+                    							<a href="#">{{value}}</a>
+                    							<input type="radio" id="size_s" name="size" value="{{value}}" data-bind="checked: varient" class="size-input">
+                    						</label>
+                    						{% endfor %}
+                    						{% endif %}
+                    					</div>
+
+                    					<p class="price" data-bind="text: price">
+                    					</p>
+                                        {% if discount_value != 0 %}
+                    					<p class="in-center">
+                    						<label class="normal-price">
+                    							<strong>Discount :</strong>
+                    						</label>
+                    						<label class="normal-price" data-bind="text: discount_type">
+                    						</label>
+                    					</p>
+                    					<p class="in-center">
+                    						<label class="normal-price">
+                    							<strong>Original Price :</strong>
+                    						</label>
+                    						<label class="original-price">₹ {{product_price}}
+                    						</label>
+                    					</p>                           
+                                        {% endif %}
+                    					<p class="text-center">
+                    						<button type="submit"
+                                            data-bind="click : function() { addThisProduct({{product_id}}) }" 
+                                            class="btn btn-template-main">
+                                            <i class="fa fa-shopping-cart"></i>
+                                            Add to cart
+                    						</button>
+                    					</p>
+
+                    				</form>
+                    			</div>
+
+
+                    		</div>
+
+
+                    	<div>
+
+                    						<!-- Nav tabs -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- /#content -->
+
+
+<script type="text/javascript">
+    var mainImageUrl = "{{product_images_url.0}}";
+    var dis_type = "{{discount_type}}";
+    var dis_value = "{{discount_value}}"
+    var prod_first_url = "{{product_images_url.0}}";
+    var prod_image_url = {{product_images_url|safe}} ;
+    var prod_price = {{product_price}};
+    var productId = {{product_id}};
+    function getUpdatedUrl(){
+        return mainImageUrl;
+    }
+</script>
+{% endblock %}

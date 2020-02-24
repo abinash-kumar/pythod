@@ -1,0 +1,30 @@
+{% extends "grocerybase.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+
+{% endblock %}
+
+
+{% block content %}
+<div class="container marketing">
+
+  <!-- Three columns of text below the carousel -->
+  <div class="row1">
+  {% for items in category_list %}
+  {% if items.no_of_child != 0 %}
+  <a href="/grocery/{{items.slug}}/{{items.id}}">
+  {% else %}
+  <a href="/grocery/list/{{items.slug}}/{{items.id}}">
+  {% endif %}
+    <div class="col-xs-6 home-item-grocery">
+      <img class="img-circle" src="{{items.image}}" alt="Generic placeholder image" width="140" height="140">
+      <h3 class="item-title bg-op-black">{{items.name}}</h3>
+      <p>{{items.description}}</p>
+    </div><!-- /.col-lg-4 -->
+  </a>
+  {% endfor %}
+  </div><!-- /.row -->
+</div>
+
+{% endblock %}

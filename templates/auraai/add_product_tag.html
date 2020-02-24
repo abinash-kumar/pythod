@@ -1,0 +1,18 @@
+<h1> Mnanage Tags </h1>
+
+{{ product.name }}
+</br>
+{% if not image_url == "" %}
+<img src="{{ image_url }}" alt="Product Photo " style="height:300px;" />
+{% endif %}
+</br>
+Add Tags
+<form method="POST" action="">{% csrf_token %}
+    <input type="hidden" name="p_id" id="p_id" />
+    <input type="text" name="new_tags" id="new_tags" /> Seperate By Comma(<b>,</b>)</br>
+    <input type="submit" value="Add Tags" />
+</form>
+<h2>Tags</h2>
+{% for tag in tags%}
+{{ tag.tag }},
+{% endfor %}

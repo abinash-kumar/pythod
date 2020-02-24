@@ -1,0 +1,363 @@
+#fixed-header {
+  position:relative;
+  top: 0px;
+  height: 30px;
+  width: 100%;
+  background: #231212;
+  z-index: 100px;
+}
+#logobar {
+  background:#e6e1e6;
+  height: 90px;
+}
+.search-box {
+    box-sizing: border-box;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('../images/head-search.png');
+    background-position: 90% 10px; 
+    background-repeat: no-repeat;
+    background-size: 20px;
+    padding: 12px 20px 12px 30px;
+    -webkit-transition: width 0.4s;
+    transition: width 0.4s;
+    height: 40px;
+    z-index: 9999;
+    width: 80%;
+}
+.submit-search {
+  width: 50px;
+  height: 40px;
+  z-index: 9999;
+  position: absolute;
+  right: 22%;
+  opacity:0;
+}
+.search-box:focus {
+
+}
+
+.left-all-fixed {
+  z-index: 500;
+}
+
+.top-std{
+  color: #fff;
+  float: right;
+  margin: 3px 20px 0 0;
+  font-weight: 300;
+  font-family: 'Raleway', sans-serif;
+  cursor: pointer;
+}
+
+.top-std:hover{
+    text-decoration: none;
+}
+
+.float-left {
+  float: left;
+  margin-left: 10px;
+}
+
+.float-right {
+  float: right;
+  font-family: 'Raleway', sans-serif;
+  line-height: 0px;
+  border-radius: 5px;
+  border:1px solid #000;
+}
+
+.cart {
+  background: url(../images/cart.png) no-repeat #eae7ea;
+  height: 40px;
+  width: 80px;
+  background-size: 30px 30px;
+  background-position: 10px;
+  position: absolute;
+  right: 0px;
+}
+.cart p {
+  margin : 20px 0 0 50px;
+}
+
+.wishlist {
+  background: url(../images/wishlist-icon.jpeg) no-repeat;
+  height: 50px;
+  width: 50px;
+  background-size: 40px 40px;
+
+}
+.wishlist p {
+  margin: 3px 0 0 6px;
+  padding: 10px;
+  font-size: 10px;
+}
+
+.center-float {
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.righthalf {
+  background: url(../images/right-arrow.png);
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 20px 20px;
+  width: 100%;
+}
+header{
+  background: #fff;
+  display: block;
+  position:relative;
+}
+header .wrap-header{}
+
+
+header .logo img{display: inline-block;margin: auto;max-width: 310px;}
+@media all and (max-width: 768px){
+  header .logo{text-align:center;width: 100%;}
+  header .logo img{display:block;}
+}
+.log {
+  color: #000;
+}
+.login{
+  padding: 25px;
+  height: 50px;
+  width: 100px;
+}
+.rounded {
+  border-radius: 50%;
+  padding:10px;
+}
+
+/************************/
+/*******Footer***********/
+/************************/
+
+.logo-footer img {
+  width: 90%;
+}
+
+.footer-distributed{
+  background-color: #e6e1e6;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  width: 100%;
+  text-align: left;
+  font: bold 16px sans-serif;
+  position: absolute;
+  bottom: 0px;
+  padding: 55px 50px;
+  margin-top: 80px;
+}
+
+.footer-distributed .footer-left,
+.footer-distributed .footer-center,
+.footer-distributed .footer-right{
+  display: inline-block;
+  vertical-align: top;
+}
+
+/* Footer left */
+
+.footer-distributed .footer-left{
+  width: 40%;
+}
+
+/* The company logo */
+
+.footer-distributed h3{
+  color:  #33383b;
+  font: normal 36px 'Cookie', cursive;
+  margin: 0;
+}
+
+.footer-distributed h3 span{
+  color:  #5383d3;
+}
+
+/* Footer links */
+
+.footer-distributed .footer-links{
+  color:  #33383b;
+  margin: 20px 0 12px;
+  padding: 0;
+}
+
+.footer-distributed .footer-links a{
+  display:inline-block;
+  line-height: 1.8;
+  text-decoration: none;
+  color:  inherit;
+}
+
+.footer-distributed .footer-company-name{
+  color:  #8f9296;
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
+}
+
+/* Footer Center */
+
+.footer-distributed .footer-center{
+  width: 35%;
+}
+
+.footer-distributed .footer-center i{
+  background-color:  #33383b;
+  color: #ffffff;
+  font-size: 25px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 42px;
+  margin: 10px 15px;
+  vertical-align: middle;
+}
+
+.footer-distributed .footer-center i.fa-envelope{
+  font-size: 17px;
+  line-height: 38px;
+}
+
+.footer-distributed .footer-center p{
+  display: inline-block;
+  color: #33383b;
+  vertical-align: middle;
+  margin:0;
+  width: 70%
+}
+
+.footer-distributed .footer-center p span{
+  display:block;
+  font-weight: normal;
+  font-size:14px;
+  line-height:2;
+}
+
+.footer-distributed .footer-center p a{
+  color:  #5383d3;
+  text-decoration: none;;
+}
+
+
+/* Footer Right */
+
+.footer-distributed .footer-right{
+  width: 20%;
+}
+
+.footer-distributed .footer-company-about{
+  line-height: 20px;
+  color:  #92999f;
+  font-size: 13px;
+  font-weight: normal;
+  margin: 0;
+}
+
+.footer-distributed .footer-company-about span{
+  display: block;
+  color:  #33383b;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.footer-distributed .footer-icons{
+  margin-top: 25px;
+}
+
+.footer-distributed .footer-icons a{
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  background-color:  #33383b;
+  border-radius: 2px;
+
+  font-size: 20px;
+  color: #ffffff;
+  text-align: center;
+  line-height: 35px;
+
+  margin-right: 3px;
+  margin-bottom: 5px;
+}
+
+/* If you don't want the footer to be responsive, remove these media queries */
+
+@media (max-width: 880px) {
+
+  .footer-distributed{
+    font: bold 14px sans-serif;
+    position: relative;
+  }
+
+  .footer-distributed .footer-left,
+  .footer-distributed .footer-center,
+  .footer-distributed .footer-right{
+    display: block;
+    width: 100%;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .footer-distributed .footer-center i{
+    margin-left: 0;
+  }
+
+}
+
+footer{margin-top: 40px;text-align: center;background: #6e7d8a;padding: 10px;}
+footer a{color: #33383b;}
+footer .wrap-footer{color: #fff;font-size: 13px;padding: 30px 20px;}
+footer .wrap-footer h3{margin-bottom: 10px;}
+footer ul.quick-link li{display: inline-block;margin: 0 10px 10px 0;}
+footer ul.quick-link li a{color: #fff;font-size: 15px;font-weight: bold;}
+
+.ic-secure {
+  display: inline-block;
+  background: url('/static/myhome/images/ic-secure.png') no-repeat;
+  overflow: hidden;
+  text-indent: -9999px;
+  text-align: left;
+  margin: 0 3px;
+}
+.ic-secure.visa {
+  background-position:-20px -104px;
+  width:48px;
+  height:35px;
+}
+.ic-secure.master-card {
+  background-position:-104px -4px;
+  width:48px;
+  height:35px;
+}
+.ic-secure.american-express{
+background-position:-20px -4px;
+  width:48px;
+  height:35px;
+}
+.ic-secure.net-banking{
+  background-position:-10px -54px;
+  width:68px;
+  height:35px;
+}
+.ic-secure.card-on-delivery {
+  background-position:-88px -104px;
+  width:88px;
+  height:35px;
+}
+
+.item-header-footer {
+  color:#fff;
+  margin-left: 1%;
+}
+.link {
+  margin-left: -50px;
+  list-style-type: none;
+}

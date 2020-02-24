@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Addiction Bazaar </title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="{% static 'myhome/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'myhome/css/zerogrid.css' %}">
+    <link rel="stylesheet" href="{% static 'myhome/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=1.5">
+    <link rel="stylesheet" href="{% static 'myhome/css/responsiveslides.css' %}">
+    <!-- Custom Fonts -->
+    <link href="{% static 'myhome/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <script src="{% static 'myhome/js/jquery-latest.min.js' %}"></script>
+    <script src="{% static 'myhome/js/script.js' %}"></script>
+    <script src="{% static 'js/knockout-3.4.0.js' %}"></script>
+    <script src="{% static 'myhome/js/responsiveslides.min.js' %}"></script>
+    <script src="{% static 'myhome/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'myhome/js/jquery-scrolltofixed-min.js' %}"></script>
+    <link href="{% static 'product/css/animate.css' %}" rel="stylesheet">
+	<link href="{% static 'product/css/style.default.css' %}" rel="stylesheet" id="theme-stylesheet">
+	<link href="{% static 'product/css/custom.css' %}" rel="stylesheet">
+
+
+
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/mui.css' %}" />
+    <link rel="stylesheet" href="{% static 'seller/css/seller.css' %}">
+    <script src="{% static 'js/mui.js' %}"></script>
+    <!-- Custom Fonts -->
+    <link href="{% static 'myhome/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+  
+    <script>
+		// You can also use "$(window).load(function() {"
+		$(function () {
+		  // Slideshow 
+		  $("#slider").responsiveSlides({
+		  	auto: true,
+		  	pager: false,
+		  	nav: true,
+		  	speed: 500,
+		  	namespace: "callbacks",
+		  	before: function () {
+		  		$('.events').append("<li>before event fired.</li>");
+		  	},
+		  	after: function () {
+		  		$('.events').append("<li>after event fired.</li>");
+		  	}
+		  });
+		});
+		$(document).ready(function() {
+
+        // Dock the header to the top of the window when scrolled past the banner.
+        // This is the default behavior.
+
+        // $('#menuwrapper').scrollToFixed({marginTop: 73});
+
+        // Dock the footer to the bottom of the page, but scroll up to reveal more
+        // content if the page is scrolled far enough.
+
+
+        // Dock each summary as it arrives just below the docked header, pushing the
+        // previous summary up the page.
+
+        
+    });
+	$(window).load(function() {
+		// Animate loader off screen
+		$(".se-pre-con").fadeOut("slow");;
+	});
+	</script>
+	
+	
+	<!--[if lt IE 8]>
+       <div style=' clear: both; text-align:center; position: relative;'>
+         <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+           <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+        </a>
+      </div>
+      <![endif]-->
+    <!--[if lt IE 9]>
+		<script src="js/html5.js"></script>
+		<script src="js/css3-mediaqueries.js"></script>
+		<![endif]-->
+
+</head>
+<body>
+
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-82397300-1', 'auto');
+	ga('send', 'pageview');
+	ga('set', 'userId', '{{request.user}}'); // Set the user ID using signed-in user_id.
+	</script>
+
+	<script>
+		window.fbAsyncInit = function() {
+		FB.init({
+		  appId      : '1787057741532094',
+		  xfbml      : true,
+		  version    : 'v2.7'
+		});
+		};
+	</script>
+
+
+	<div class="wrap-body">
+
+	{% include "new_header.html" %}
+
+	{% block content %}
+
+	{% endblock %}
+
+	</div>
+	<!-- footer -->
+	{% include "footer.html" %}
+	<style type="text/css">
+	/**/
+	</style>
+</body>
+</html>

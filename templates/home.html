@@ -1,0 +1,178 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+
+<title>Addiction Bazaar </title>
+
+{% endblock %}
+
+{% block content %}
+<div id="app">
+<!-- Slider Carousal -->
+
+</div>
+<!-- /.carousel -->
+
+<!-- Slider Carousal -->
+
+
+<!--////////////////////////////////////Container-->
+<section class="container96">
+	<div class="wrap-container">
+		<section class="content-box box-1">
+			<div class="zerogrid">
+				{% for text,image in banner_img.items %}
+				<div class="header">
+				<img src="{{image.url}}" alt="{{text}}">
+				</div>
+				{% endfor %}
+
+    <div id="content">
+        <div class="container">
+            <section>
+				<div class="row portfolio no-space">
+
+					{% for cat in category_list %}
+					<div class="col-xs-6 col-sm-4 bounceIn animated">
+						<div class="box-image">
+							<div class="image">
+								<img src="{{cat.image}}" alt="" class="img-responsive">
+							</div>
+
+							<div class="layered">
+								<h3>
+								<a href="/product/list/{{cat.slug}}/{{cat.id}}">{{cat.name}}</a>
+								</h3> 
+							</div>
+							<div class="text-collection">
+								<p class="">
+								{{cat.description}}
+								</p>
+								<div class="shop-button">
+									<a href="/product/list/{{cat.slug}}/{{cat.id}}">Shop Now</a>
+								</div>
+							</div>
+						</div>
+						<!-- /.box-image -->
+					</div>
+					{% endfor %}
+
+				</div>
+			</section>
+		</div>
+	</div>
+	</div>
+</section>
+
+<!-- Features Products -->
+
+
+
+
+<!-- end of feature products -->
+
+
+<section class="content-box box-2" style="margin-top:20px;"><!--Start Box-->
+	<div class="zerogrid">
+		<div class="row">
+			<div class="col-md-12 text-center fadeOutLeft">
+			<h3 class="title-home">
+				<span>Designers</span>
+			</h3>
+			</div>
+
+			<div class="col-md-12 col-md-offset-0">
+				<div class="carousel2 slide" data-ride="carousel" data-type="multi" data-interval="" id="myCarousel">
+					<div class="carousel-inner">
+						
+						<div class="col-md-3 col-sm-6 col-xs-6">
+							<div class="item active">
+								<a href="#">
+									<img src="{{activedesigner.image.url}}" class="rounded img-responsive">
+								</a>
+							</div>
+						</div>
+
+						{% for p in designer %}
+
+						<div class="col-md-3 col-sm-6 col-xs-6">
+							<div class="item">
+							<a href="#">
+								<img src="{{p.image.url}}" class="rounded img-responsive">
+							</a>
+							</div>
+						</div>
+
+						{% endfor %}
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+								
+
+
+<!-- JavaScript jQuery code from Bootply.com editor  -->
+
+<script type='text/javascript'>
+	$(document).ready(function(){
+	        $("#openModal").modal('show');
+	    });
+
+	$(document).ready(function() {
+
+		$('.carousel[data-type="multi"] .item').each(function(){
+			var next = $(this).next();
+			if (!next.length) {
+				next = $(this).siblings(':first');
+			}
+			next.children(':first-child').clone().appendTo($(this));
+
+			for (var i=0;i<4;i++) {
+				next=next.next();
+				if (!next.length) {
+					next = $(this).siblings(':first');
+				}
+
+				next.children(':first-child').clone().appendTo($(this));
+			}
+		});
+		$('.carousel2[data-type="multi"] .item').each(function(){
+			var next = $(this).next();
+			if (!next.length) {
+				next = $(this).siblings(':first');
+			}
+			next.children(':first-child').clone().appendTo($(this));
+
+			for (var i=0;i<2;i++) {
+				next=next.next();
+				if (!next.length) {
+					next = $(this).siblings(':first');
+				}
+
+				next.children(':first-child').clone().appendTo($(this));
+			}
+		});
+
+	});
+
+</script>
+<script type="text/javascript">
+	// var user = '{{request.user}}';
+	// var csrf_token = "{{csrf_token}}";
+	// if(navigator.userAgent.match(/Android/i)
+ //          || navigator.userAgent.match(/iPhone/i)
+ //          || navigator.userAgent.match(/iPod/i)
+ //          || navigator.userAgent.match(/BlackBerry/i)
+ //          || navigator.userAgent.match(/Windows Phone/i)) {
+		  
+	// 	   location.href = "http://m.addictionbazaar.com";
+ //    }
+</script>
+{% endblock %}
+
+
+

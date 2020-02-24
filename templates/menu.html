@@ -1,0 +1,379 @@
+{% load staticfiles %}
+
+<div id="mySidenav" class="sidenav in-mobile">
+  <div>
+  	  <a href='/' class="mobile-menu-top"><img src="{% static 'myhome/images/logo1.png' %}" />
+  	  </a>
+	  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><</a>
+  </div>	
+  <ul class="mobile-menu">
+		<li class="mobile-menu-items">
+			<a class="hides shows" 
+			href="http://addictionbazaar.com/product/list/mens/28">
+			<img src="{% static 'myhome/images/head-man.png' %}"/>
+			Men
+			</a>
+		</li>
+		<li class="mobile-menu-items">
+			<a class="hides shows" 
+			href="http://addictionbazaar.com/product/list/womens/43">
+			<img src="{% static 'myhome/images/women.png' %}"/>
+			Women</a>
+		</li>
+		<li class="mobile-menu-items">
+			<a class="hides shows" 
+			href="http://addictionbazaar.com/product/list/handicraft/63">
+			<img src="{% static 'myhome/images/hand.png' %}"/>
+			Handicraft
+			</a>
+		</li>
+		<li class="mobile-menu-items">
+			<a class="hides shows" href="#">
+			<img src="{% static 'myhome/images/deg.png' %}"/>
+			Designer
+			</a>
+		</li>
+		<li class="mobile-menu-items">
+			<a class="hides shows" 
+			href="http://addictionbazaar.com/product/list/furniture/1">
+			<img src="{% static 'myhome/images/fur.png' %}"/>
+			Furniture
+			</a>
+		</li>
+		<li class="mobile-menu-items">
+			<a class="hides shows" href="#">
+			<img src="{% static 'myhome/images/cus.png' %}"/>Customization
+			</a>
+		</li>
+	</ul>
+
+	<div class="mobile-menu-bottom">
+	{% if user and not user.is_anonymous %}
+         <a class="btn">
+            Hi! {{user.first_name}}
+         </a>
+            <a class="btn btn-template-main" href="{% url 'profile' %}">My Profile</a>
+            <a class="btn btn-template-main" href="{% url 'profile' %}?tab=picked">Picked by me</a>
+            <a class="btn btn-template-main" href="{% url 'profile' %}?tab=orders">My Orders</a>
+            <a href="/logout/" class="btn btn-template-main" onclick="removeTokenValue()">Not {{user.first_name}}? Logout</a>
+	    {% else %}
+	    <a href="/login/" class="btn btn-template-main">Login</a>
+		<a href="/register/" class="btn btn-template-main">Register</a>
+	{% endif %}
+	<span><a href="http://seller.addictionbazaar.com" class="btn">Sell with us</a></span>
+	</div>
+
+</div>
+
+<div id="menuwrapper">
+	<ul>
+		<li id="menu">
+			<img src="{% static 'myhome/images/home.png' %}"/>
+			<a class="hides shows" href="">Menu</a>
+		</li>
+		<li id="cat1">
+			<img src="{% static 'myhome/images/head-man.png' %}"/>
+			<a class="hides shows" 
+			href="http://addictionbazaar.com/product/list/mens/28">Men</a>
+		</li>
+		<li id="cat2">
+			<img src="{% static 'myhome/images/women.png' %}"/>
+			<a class="hides shows" 
+			href="http://addictionbazaar.com/product/list/womens/43">Women</a>
+		</li>
+		<li id="cat3">
+		<img src="{% static 'myhome/images/hand.png' %}"/>
+			<a class="hides shows" 
+			href="http://addictionbazaar.com/product/list/handicraft/63">Handicraft</a>
+		</li>
+		<li id="cat4">
+			<img src="{% static 'myhome/images/deg.png' %}"/>
+			<a class="hides shows" href="#">Designer</a>
+		</li>
+		<li id="cat5">
+			<img src="{% static 'myhome/images/fur.png' %}"/>
+			<a class="hides shows" 
+			href="http://addictionbazaar.com/product/list/furniture/1">Furniture</a>
+		</li>
+		<li id="cat6">
+			<img src="{% static 'myhome/images/cus.png' %}"/>
+			<a class="hides shows" href="#">Customization</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$("#menu").on("mouseenter", function() {
+			// $("#cat1-sm").show();
+			$(".shows").show();
+		}).on("mouseleave", function() {
+				$("#cat1-sm").on("mouseenter", function() {
+				$("#cat1-sm").show();
+				$("#menuwrapper>ul").addClass('menu-hover');
+				$(".shows").show();
+				});
+				$("#cat1-sm").on("mouseleave", function() {
+				$(".shows").hide();
+				$("#menuwrapper>ul").removeClass('menu-hover');
+				});
+			$("#cat1-sm").hide();
+			$(".shows").hide();
+		});
+		$("#cat1-sm").on("mouseleave", function() {
+		$("#cat1-sm").hide("fast");
+		$(".shows").hide();
+		});
+
+		$("#cat1").on("mouseenter", function() {
+			$("#cat1-sm").show();
+			$(".shows").show();
+		}).on("mouseleave", function() {
+				$("#cat1-sm").on("mouseenter", function() {
+				$("#cat1-sm").show();
+				$("#menuwrapper>ul").addClass('menu-hover');
+				$(".shows").show();
+				});
+				$("#cat1-sm").on("mouseleave", function() {
+				$(".shows").hide();
+				$("#menuwrapper>ul").removeClass('menu-hover');
+				});
+			$("#cat1-sm").hide();
+			$(".shows").hide();
+		});
+		$("#cat1-sm").on("mouseleave", function() {
+		$("#cat1-sm").hide("fast");
+		$(".shows").hide();
+		});
+
+
+		$("#cat2").on("mouseenter", function() {
+			$("#cat2-sm").show();
+			$(".shows").show();
+		}).on("mouseleave", function() {
+				$("#cat2-sm").on("mouseenter", function() {
+				$("#cat2-sm").show();
+				$("#menuwrapper>ul").addClass('menu-hover');
+				$(".shows").show();
+				});
+				$("#cat2-sm").on("mouseleave", function() {
+				$(".shows").hide();
+				$("#menuwrapper>ul").removeClass('menu-hover');
+				});
+			$("#cat2-sm").hide();
+			$(".shows").hide();
+		});
+		$("#cat2-sm").on("mouseleave", function() {
+		$("#cat2-sm").hide("fast");
+		$(".shows").hide();
+		});
+
+		$("#cat3").on("mouseenter", function() {
+			$("#cat3-sm").show();
+			$(".shows").show();
+		}).on("mouseleave", function() {
+				$("#cat3-sm").on("mouseenter", function() {
+				$("#cat3-sm").show();
+				$("#menuwrapper>ul").addClass('menu-hover');
+				$(".shows").show();
+				});
+				$("#cat3-sm").on("mouseleave", function() {
+				$(".shows").hide();
+				$("#menuwrapper>ul").removeClass('menu-hover');
+				});
+			$("#cat3-sm").hide();
+			$(".shows").hide();
+		});
+		$("#cat3-sm").on("mouseleave", function() {
+		$("#cat3-sm").hide("fast");
+		$(".shows").hide();
+		});
+
+		$("#cat4").on("mouseenter", function() {
+			$("#cat4-sm").show();
+			$(".shows").show();
+		}).on("mouseleave", function() {
+				$("#cat4-sm").on("mouseenter", function() {
+				$("#cat4-sm").show();
+				$("#menuwrapper>ul").addClass('menu-hover');
+				$(".shows").show();
+				});
+				$("#cat4-sm").on("mouseleave", function() {
+				$(".shows").hide();
+				$("#menuwrapper>ul").removeClass('menu-hover');
+				});
+			$("#cat4-sm").hide();
+			$(".shows").hide();
+		});
+		$("#cat4-sm").on("mouseleave", function() {
+		$("#cat4-sm").hide("fast");
+		$(".shows").hide();
+		});
+
+		$("#cat5").on("mouseenter", function() {
+			$("#cat5-sm").show();
+			$(".shows").show();
+		}).on("mouseleave", function() {
+				$("#cat5-sm").on("mouseenter", function() {
+				$("#cat5-sm").show();
+				$("#menuwrapper>ul").addClass('menu-hover');
+				$(".shows").show();
+				});
+				$("#cat5-sm").on("mouseleave", function() {
+				$(".shows").hide();
+				$("#menuwrapper>ul").removeClass('menu-hover');
+				});
+			$("#cat5-sm").hide();
+			$(".shows").hide();
+		});
+		$("#cat5-sm").on("mouseleave", function() {
+		$("#cat5-sm").hide("fast");
+		$(".shows").hide();
+		});
+
+		$("#cat6").on("mouseenter", function() {
+			$("#cat6-sm").show();
+			$(".shows").show();
+		}).on("mouseleave", function() {
+				$("#cat6-sm").on("mouseenter", function() {
+				$("#cat6-sm").show();
+				$("#menuwrapper>ul").addClass('menu-hover');
+				$(".shows").show();
+				});
+				$("#cat6-sm").on("mouseleave", function() {
+				$(".shows").hide();
+				$("#menuwrapper>ul").removeClass('menu-hover');
+				});
+			$("#cat6-sm").hide();
+			$(".shows").hide();
+		});
+		$("#cat6-sm").on("mouseleave", function() {
+		$("#cat6-sm").hide("fast");
+		$(".shows").hide();
+		});
+
+	});
+
+
+	$('.fullgrid').scrollToFixed({zIndex: 200});
+   /* Set the width of the side navigation to 250px */
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    /* Set the width of the side navigation to 0 */
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+</script>
+
+
+<style type="text/css">
+
+  /* The side navigation menu */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 999; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: rgba(17, 17, 17, 0.85);
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 10px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #fff;
+    display: block;
+    transition: 0.3s;
+    font-family: 'Roboto Slab', serif;
+}
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    font-size: 36px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+.mobile-menu {
+	width: 250px;
+	margin-top: 30px;
+}
+.mobile-menu-items {
+	display: block;
+	border-bottom: 1px solid #ccc;
+}
+.mobile-menu-items img{
+	padding: 5px 20px 0 0;
+	width: 35px;
+}
+.mobile-menu-bottom {
+	width: 200px;
+	margin-top: 50px;
+	margin-left: 25px;
+}
+.mobile-menu-bottom>a {
+	padding: 5px;
+	color: #000;
+	margin-bottom: 10px;
+}
+.mobile-menu-top {
+	position: absolute;
+	top: 15px;
+	background:#fff;
+	width: 200px;
+	right: 10px;
+
+}
+.mobile-menu-bottom>span>a {
+	color: #fff;
+}
+
+#menuwrapper:hover  #menu, #menu a {
+	background:#2ba99c;
+	z-index: 9999;
+	width: 100%;
+}
+
+#menu, #menu a {
+	background:#2ba99c;
+	z-index: 9999;
+	width: 100%;
+}
+
+.submenu:hover #menu{
+	background:#2ba99c;
+	z-index: 9999;
+	width: 100%;
+}
+
+#menuwrapper:hover ul li {
+	width: 170px;
+}
+
+</style>

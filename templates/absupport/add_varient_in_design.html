@@ -1,0 +1,88 @@
+{% extends "base_new.html" %}
+{% load staticfiles %} {% block headContent %}
+<title>Your Cart - Addiction Bazaar</title>
+{% endblock %} {% block content %}
+
+<div id="content">
+      <div class="container-full">
+            <div class="row">
+                  <h3>{{message}}</h3>
+                  <form method="POST" action="/ab/product/submit-art-product/">{% csrf_token %}
+                        <div class="col-sm-12">
+                              <input type="hidden" name="product_id" value="{{product_id}}">
+                              <input type="hidden" name="category_slug" value="{{category_obj.slug}}">
+                              <input type="hidden" name="printable_product" value="{{printable_product}}">
+                              <h2>Category-
+                                    <u>{{category_obj.name}}</u>
+                              </h2>
+                              {% for key, values in varients.items %}
+                              <div class="col-sm-2">
+                                    <h4>
+                                          <u>
+                                                <b>Select {{key}}</b>
+                                          </u>
+                                    </h4>
+                                    {% for v in values %}
+                                    <input type="checkbox" name="{{key}}" class="{{key}}" value="{{v.keys.0}}" {% if v.items.0.1 %} checked {% endif %}>{{v.keys.0}}
+                                    <br> {% endfor %}</div>
+                              {% endfor %}
+                        </div>
+                        <br />
+                        <h3>Select Images</h3>
+                        <div class="container-full">
+                              <div class="row">
+                                    <div class="col-sm-12">
+                                          {% for i in product_photo%}
+                                          <div class="col-sm-3">
+                                                <input type="checkbox" class="image_checkbox" name="images" value="{{i}}" />
+                                                <input type="checkbox" class="image_checkbox" name="cover-images" value="{{i}}" />
+                                                <img src={{i}} width="100%">
+                                          </div>
+                                          {% endfor %}
+                                    </div>
+                              </div>
+                        </div>
+                        <div class="row pad-10">
+                              <div class="col-sm-12">
+                                    <input type="text" name="design_id" value="{{product_id}}" size="70" />
+                                    <h5>Name : </h5>
+                                    <input type="text" name="name" value="{{name}}" size="70" />
+                                    <br/>
+                                    <h5>Description : </h5>
+                                    <input type="textbox" name="description" value="{{description}}" size="70" />
+                                    <br/>
+                                    <h5>Price : </h5>
+                                    <input type="text" name="price" value="{{price}}" />
+                                    <br/>
+                                    <h5>Tags : </h5>
+                                    <input type="text" name="tags" value="{{tags}}" size="70" />
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <input type="submit" class="btn btn-primary" value="proceed"/>
+                              </div>
+                        </div>
+                  </form>
+            </div>
+      </div>
+      <br />
+      <br />
+      <br />
+      <div class="container">
+
+      </div>
+</div>
+<script>
+      $(document).ready(function () {
+            $(".COLOR").click(function () {
+                  var cb_value = this.value.toLowerCase()
+                  for (var i = 0; i < $(".image_checkbox").length; i++) {
+                        if ($(".image_checkbox")[i].value.indexOf(cb_value) >= 0) {
+                              $(".image_checkbox")[i].checked = this.checked
+                        }
+                  }
+
+            });
+      });
+
+</script> {{category_obj}} {% endblock %} {{varients}}

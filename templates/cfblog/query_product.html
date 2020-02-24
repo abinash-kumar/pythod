@@ -1,0 +1,82 @@
+{% extends 'base_new.html' %}
+{% load staticfiles %}
+{% block head %}
+<title name="og:title" data-cms-content="title">Addiction Bazaar</title>
+<meta data-cms-attr="content:description" name="description" content="Addiction Bazaar" />
+<meta data-cms-attr="content:og_description" name="og:description" content="Addiction Bazaar">
+<meta name="image" itemprop="image" data-cms-attr="content:full_meta_img_url" content="">
+<meta data-cms-attr="content:og_url" name="og:url" content="https://www.addictionbazaar.com/">
+<meta name="og:site_name" content="Addiction Bazaar">
+<meta name="fb:app_id" content="1787057741532094">
+<meta name="og:type" content="website">
+<link rel="stylesheet" href="{% static 'css/template-style.css' %}?v=1.0">
+{% endblock %} 
+{% block content %}
+
+
+<div data-cms-content="md:HeadDiv"></div>
+
+
+<div class="section-container" id="contact-section-container">
+    <div class="container contact-form-container">
+        <div class="row">
+            <div class="col-xs-12 col-md-offset-2 col-md-8">
+                <div class="section-container-spacer">
+                    <h2 class="text-center" data-cms-content="HeadingGetInTouch">Get in touch</h2>
+                </div>
+                <form>
+                    <div class="row1">
+                        <div class="col-md-4">
+                                <input type="text" name="name" class="form-control" placeholder="Name">
+                        </div>
+                        <div class="col-md-4">
+                                <input type="mobile" name="mobile" class="form-control" placeholder="Mobile">
+                        </div>
+                        <div class="col-md-4">
+                                <input type="email" name="email" class="form-control" placeholder="Email">
+                        </div>
+                    </div>
+
+                    
+                    <textarea class="form-control" name="message" rows="3" placeholder="Enter your message"></textarea>
+                    
+
+                    <button type="submit" class="btn btn-primary" onclick="updateSpreadSheet(
+                        document.getElementsByName('name')[0].value,
+                        document.getElementsByName('mobile')[0].value,
+                        document.getElementsByName('email')[0].value,
+                        document.getElementsByName('message')[0].value,
+                    )">
+                        Send message
+                    </button>
+                    <a href="" class="btn btn-default">Reset</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class='container-c'>
+    <div class="bgimg map-container">
+        <div id="map"></div>
+        <div class="col-xs-10 col-md-4 contact-block-container reveal">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    <h3>Phone</h3>
+                    <p>9598602007</p>
+                    <h3>E-mail</h3>
+                    <p>sayhey@addictionbazaar.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style type="text/css">
+    #map {
+        background-image: url("{% static 'img/contact-us.jpg' %}");
+    }
+</style>
+
+{% endblock %}

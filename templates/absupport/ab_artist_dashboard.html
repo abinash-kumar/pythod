@@ -1,0 +1,43 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+
+{% block headContent %}
+
+<title>Create Product</title>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+    	<table class="table table-bordered">
+    		<thead>
+    			<tr>
+    				<th>Name</th>
+    				<th>Pending Design</th>
+    				<th>Approved Design</th>
+    				<th>Rejected Design</th>
+    				<th>Total Design</th>
+    				<th>Link</th>
+    			</tr>
+    		</thead>
+
+    		<tbody>
+    			{% for artist in artist_list %}
+    			<tr>
+    				<td>{{artist.name}}</td>
+    				<td>{{artist.pending_design_count}}</td>
+    				<td>{{artist.approved_design_count}}</td>
+    				<td>{{artist.rejected_design_count}}</td>
+    				<td>{{artist.all_design_count}}</td>
+    				<td><a href="{{artist.link}}">Link</a></td>
+    			</tr>
+    			{% endfor %}
+    		</tbody>
+    	</table>
+        
+    </div>
+</div>
+
+{% endblock %}
